@@ -1,10 +1,12 @@
-/**
+package com.example.demo; /**
  * The program provides a sample for Java Engine functions. It creates a matrix and squares the values greater than 5.
  * Copyright 2016-2017 The MathWorks, Inc.
  */
 
 import com.mathworks.engine.MatlabEngine;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -26,7 +28,16 @@ public class EngineConsoleDemo {
 
             System.out.println("connecting");
             MatlabEngine ml = MatlabEngine.connectMatlab();
-            ml.eval("load('C:\\Users\\User\\Documents\\CS\\NEI6\\compact_model_for_testing.mat');");
+//            MatlabEngine ml = null;
+//            String path = "C:\\Users\\User\\Documents\\CS\\NEI6\\compact_model_for_testing.mat";
+            String path = "model.mat";
+            System.out.println(path);
+            File f = new File(path);
+            System.out.println(f.getAbsolutePath());
+            System.out.println(f.getCanonicalPath());
+//            ml.feval("load", f.getAbsolutePath());
+//            ml.eval("load('C:\\Users\\User\\Documents\\CS\\NEI6\\compact_model_for_testing.mat');");
+            ml.eval(String.format("load('%s');", f.getCanonicalPath()));
             ml.eval("load('C:\\Users\\User\\Documents\\CS\\NEI6\\sample.mat');");
             ml.eval("ans = cens.predict(data1);");
             double pred = ml.getVariable("ans");
@@ -110,6 +121,8 @@ public class EngineConsoleDemo {
 //            ml.disconnect();
             ml.quit();
         } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
