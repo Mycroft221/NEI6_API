@@ -9,7 +9,8 @@ input[type="checkbox"] {
     display: none;
 }
 input[type="number"] {
-    margin: 8px 5px;
+    margin: 4px 5px;
+    margin-bottom: 18px;
     width: 128px;
     height: 15px;
 }
@@ -28,7 +29,8 @@ label {
   border: thin solid rgb(0, 4, 255);
   border-radius: 10px;
   margin:3px;
-  margin-top: 4px;
+  margin-top: 6px;
+  margin-bottom:2px;
   display: inline-block;
 }
 
@@ -48,7 +50,8 @@ p {
     font:bold;
     font-size: 110%;
     text-indent: 10px;
-    margin-bottom: 4px;
+    margin-bottom: 0px;
+    margin-top: 8px;
 }
 h2 {
     text-indent: 10px;
@@ -87,76 +90,76 @@ function handlePrediction(prediction) {
   <label for="a">Yes</label>
   <input type="radio" id="an" name="0" checked>
   <label for="an">No</label>
-  <br><br><br>
+  <br><br>
 
   <p>ED Temperature</p>
   <input type="number" id="b">
-  <br><br>
+  <br>
 
   <p>Obesity</p>
   <input type="radio" id="c" name="1">
   <label for="c">Yes</label>
   <input type="radio" id="cn" name="1" checked>
   <label for="cn">No</label>
-  <br><br><br>
+  <br><br>
 
   <p>Helmet Use</p>
   <input type="radio" id="d" name="2">
   <label for="d">Yes</label>
   <input type="radio" id="dn" name="2" checked>
   <label for="dn">No</label>
-  <br><br><br>
+  <br><br>
 
   <p>Systolic Blood Pressure</p>
   <input type="number" id="e">
-  <br><br>
+  <br>
 
   <p>Pulse</p>
   <input type="number" id="f">
-  <br><br>
+  <br>
 
   <p>GCS Score</p>
   <input type="number" id="g">
-  <br><br>
+  <br>
 
   <p>Open Fracture</p>
   <input type="radio" id="h" name="3">
   <label for="h">Yes</label>
   <input type="radio" id="hn" name="3" checked>
   <label for="hn">No</label>
-  <br><br><br>
+  <br><br>
 
   <p>Central Gunshot Wound</p>
   <input type="radio" id="i" name="4">
   <label for="i">Yes</label>
   <input type="radio" id="in" name="4" checked>
   <label for="in">No</label>
-  <br><br><br>
+  <br><br>
 
   <p>Gender</p>
   <input type="radio" id="j" name="10">
   <label for="j">Male</label>
   <input type="radio" id="jn" name="10">
   <label for="jn">Female</label>
-  <br><br><br>
+  <br><br>
 
   <p>Private Insurance</p>
   <input type="radio" id="k" name="11">
   <label for="k">Yes</label>
   <input type="radio" id="kn" name="11" checked>
   <label for="kn">No</label>
-  <br><br><br>
+  <br><br>
 
   <p>Evening Arrival</p>
   <input type="radio" id="l" name="12">
   <label for="l">Yes</label>
   <input type="radio" id="ln" name="12" checked>
   <label for="ln">No</label>
-  <br><br><br>
+  <br><br>
 
   <p>Age</p>
   <input type="number" id="m">
-  <br><br>
+  <br>
 
   <!-- 14-18 nopqr-->
   
@@ -167,7 +170,7 @@ function handlePrediction(prediction) {
   <label for="t">black</label>
   <input type="checkbox" id="u" name="ro">
   <label for="u">other</label>
-  <br><br><br>
+  <br><br>
 
   <p>Mechanism of Injury</p>
   <input type="checkbox" id="w">
@@ -186,7 +189,7 @@ function handlePrediction(prediction) {
   <label for="ac">struck</label>
   <input type="checkbox" id="v">
   <label for="v">other</label>
-  <br><br><br>
+  <br><br>
 
   <p>Intentionality</p>
   <input type="checkbox" id="ad">
@@ -199,7 +202,7 @@ function handlePrediction(prediction) {
   <label for="ag">undetermined</label>
   <input type="checkbox" id="ah">
   <label for="ah">other (legal intervention/war)</label>
-  <br><br><br>
+  <br><br>
 
   <p>Transport Distance</p>
   <input type="radio" name="transport" id="ai">
@@ -208,7 +211,7 @@ function handlePrediction(prediction) {
   <label for="aj">15 - 30 mins</label>
   <input type="radio" name="transport" id="ak">
   <label for="ak">more than 30 mins</label>
-  <br><br><br>
+  <br><br>
 
   <!-- <input type="button" value="test" onclick="alert(
       (+ a.checked) + ',' + b.value + ',' + (+ c.checked) + 
@@ -225,13 +228,13 @@ function handlePrediction(prediction) {
 
 
 
-  <br><br>
+  <br>
   <!-- <input type="radio" id="a" name="d" value="male">
   <label for="a">Male</label><br>
   <input type="radio" id="b" name="d" value="female">
   <label for="b">Female</label><br> -->
   <!-- <input type="radio" id="c" name="d" value="other">
-  <label for="c">Other</label><br><br> -->
+  <label for="c">Other</label><br> -->
   <!-- <input type="submit" value="Submit" onclick="alert(female.checked + 1)"> -->
   <input type="button" value="Submit" onclick="handlePrediction(httpGet(
       'http\://ec2-35-163-138-174.us-west-2.compute.amazonaws.com:8080/predict?values='
@@ -250,7 +253,7 @@ function handlePrediction(prediction) {
       + ',' + (+ ad.checked) + ',' + (+ ae.checked) + ',' + (+ af.checked) 
       + ',' + (+ ag.checked) + ',' + (+ ah.checked) + ',' + (+ ai.checked) 
       + ',' + (+ aj.checked) + ',' + (+ ak.checked)))">
-  <br><br><br><br>
+  <br><br><br>
 </form> 
 
 </body>
