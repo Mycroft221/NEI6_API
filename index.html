@@ -13,7 +13,7 @@ input[type="number"] {
     width: 128px;
     height: 15px;
 }
-input[type="submit"] {
+input[type="button"] {
   float: left;
   padding: 8px 20px;
   background-color: rgb(0, 255, 0);
@@ -56,9 +56,8 @@ h2 {
 }
 </style>
 <script>
-function httpGet(theUrl)
-{
-    alert(theUrl);
+function httpGet(theUrl){
+    // alert(theUrl);
     // alert("httpGet called");
     var xmlHttp = new XMLHttpRequest();
     // alert("var created");
@@ -69,6 +68,13 @@ function httpGet(theUrl)
     // alert(xmlHttp.responseText);
     return xmlHttp.responseText;
 }
+function handlePrediction(prediction) {
+    if (prediction == 1) {
+        window.location = 'true.html';
+    } else {
+        window.location = 'false.html';
+    }
+}
 </script>
 <body>
 
@@ -77,102 +83,94 @@ function httpGet(theUrl)
 
 
 <form>
-  <p>transfer</p>
+  <p>Transfer</p>
   <input type="radio" id="a" name="0">
   <label for="a">Yes</label>
   <input type="radio" id="an" name="0" checked>
   <label for="an">No</label>
   <br><br><br>
 
-  <p>ed_temp</p>
+  <p>ED Temperature</p>
   <input type="number" id="b">
   <br><br>
 
-  <p>obesity</p>
+  <p>Obesity</p>
   <input type="radio" id="c" name="1">
   <label for="c">Yes</label>
   <input type="radio" id="cn" name="1" checked>
   <label for="cn">No</label>
   <br><br><br>
 
-  <p>helmet</p>
+  <p>Helmet Use</p>
   <input type="radio" id="d" name="2">
   <label for="d">Yes</label>
   <input type="radio" id="dn" name="2" checked>
   <label for="dn">No</label>
   <br><br><br>
 
-  <p>sbp</p>
+  <p>Systolic Blood Pressure</p>
   <input type="number" id="e">
   <br><br>
 
-  <p>pulse</p>
+  <p>Pulse</p>
   <input type="number" id="f">
   <br><br>
 
-  <p>field_gcs</p>
+  <p>GCS Score</p>
   <input type="number" id="g">
   <br><br>
 
-  <p>openfx_all</p>
+  <p>Open Fracture</p>
   <input type="radio" id="h" name="3">
   <label for="h">Yes</label>
   <input type="radio" id="hn" name="3" checked>
   <label for="hn">No</label>
   <br><br><br>
 
-  <p>trunk_centralgsw</p>
+  <p>Central Gunshot Wound</p>
   <input type="radio" id="i" name="4">
   <label for="i">Yes</label>
   <input type="radio" id="in" name="4" checked>
   <label for="in">No</label>
   <br><br><br>
 
-  <!-- TODO: double check -->
-  <p>gender</p>
+  <p>Gender</p>
   <input type="radio" id="j" name="10">
   <label for="j">Male</label>
   <input type="radio" id="jn" name="10">
   <label for="jn">Female</label>
   <br><br><br>
 
-  <p>private</p>
+  <p>Private Insurance</p>
   <input type="radio" id="k" name="11">
   <label for="k">Yes</label>
   <input type="radio" id="kn" name="11" checked>
   <label for="kn">No</label>
   <br><br><br>
 
-  <p>eneningarr</p>
+  <p>Evening Arrival</p>
   <input type="radio" id="l" name="12">
   <label for="l">Yes</label>
   <input type="radio" id="ln" name="12" checked>
   <label for="ln">No</label>
   <br><br><br>
 
-  <p>age_deid</p>
+  <p>Age</p>
   <input type="number" id="m">
   <br><br>
 
-  <!-- <p>eneningarr</p>
-  <input type="radio" id="l" name="12">
-  <label for="l">Yes</label>
-  <input type="radio" id="ln" name="12" checked>
-  <label for="ln">No</label>
-  <br><br><br> -->
-
   <!-- 14-18 nopqr-->
   
-  <p>race</p>
+  <p>Race</p>
   <input type="checkbox" id="s" name="rw">
   <label for="s">white</label>
   <input type="checkbox" id="t" name="rb">
   <label for="t">black</label>
   <input type="checkbox" id="u" name="ro">
   <label for="u">other</label>
-  <br><br><br>
+  <br><br><br><br>
 
-  <p>injury</p>
+  <p>Mechanism of Injury</p>
   <input type="checkbox" id="w">
   <label for="w">cut</label>
   <input type="checkbox" id="x">
@@ -189,9 +187,9 @@ function httpGet(theUrl)
   <label for="ac">struck</label>
   <input type="checkbox" id="v">
   <label for="v">other</label>
-  <br><br><br>
+  <br><br><br><br>
 
-  <p>intentionality</p>
+  <p>Intentionality</p>
   <input type="checkbox" id="ad">
   <label for="ad">unintentional</label>
   <input type="checkbox" id="ae">
@@ -202,16 +200,16 @@ function httpGet(theUrl)
   <label for="ag">undetermined</label>
   <input type="checkbox" id="ah">
   <label for="ah">other (legal intervention/war)</label>
-  <br><br><br>
+  <br><br><br><br>
 
-  <p>transport distance</p>
+  <p>Transport Distance</p>
   <input type="radio" name="transport" id="ai">
   <label for="ai">less than 15 mins</label>
   <input type="radio" name="transport" id="aj">
   <label for="aj">15 - 30 mins</label>
   <input type="radio" name="transport" id="ak">
   <label for="ak">more than 30 mins</label>
-  <br><br><br>
+  <br><br><br><br>
 
   <!-- <input type="button" value="test" onclick="alert(
       (+ a.checked) + ',' + b.value + ',' + (+ c.checked) + 
@@ -236,15 +234,17 @@ function httpGet(theUrl)
   <!-- <input type="radio" id="c" name="d" value="other">
   <label for="c">Other</label><br><br> -->
   <!-- <input type="submit" value="Submit" onclick="alert(female.checked + 1)"> -->
-  <input type="submit" value="Submit" onclick="alert(httpGet(
+  <input type="button" value="Submit" onclick="handlePrediction(httpGet(
       'http\://ec2-35-163-138-174.us-west-2.compute.amazonaws.com:8080/predict?values='
       + (+ a.checked) + ',' + b.value + ',' + (+ c.checked) + 
       ',' + (+ d.checked) + ',' + e.value + ',' + f.value + ',' + 
       g.value + ',' + (+ h.checked) + ',' + (+ i.checked) + ',' + 
       (+ j.checked) + ',' + (+ k.checked) + ',' + (+ l.checked)
-      + ',' + m.value + ',' + 0 + ',' + 0 + ',' + 0 + ',' + 
-      0 + ',' + 0 + ',' + 
-      (+ s.checked) + ',' + (+  t.checked) + 
+      + ',' + m.value + ',' + + (b.value == '') + ',' + + (e.value == '') 
+      + ',' + + (f.value == '') + ',' + + (g.value = '') + ',' + 
+      (+ !(ad.checked || ae.checked || af.checked || ag.checked ||
+      ah.checked))
+      + ',' + (+ s.checked) + ',' + (+  t.checked) + 
       ',' + (+ u.checked) + ',' + (+ v.checked) + ',' + (+ w.checked) + 
       ',' + (+ x.checked) + ',' + (+ y.checked) + ',' + (+ z.checked) + 
       ',' + (+ aa.checked) + ',' + (+ ab.checked) + ',' + (+ ac.checked)
