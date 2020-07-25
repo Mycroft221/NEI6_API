@@ -238,11 +238,11 @@ function handlePrediction(prediction) {
   <!-- <input type="submit" value="Submit" onclick="alert(female.checked + 1)"> -->
   <input type="button" value="Submit" onclick="handlePrediction(httpGet(
       'http\://ec2-35-163-138-174.us-west-2.compute.amazonaws.com:8080/predict?values='
-      + (+ a.checked) + ',' + b.value + ',' + (+ c.checked) + 
-      ',' + (+ d.checked) + ',' + e.value + ',' + f.value + ',' + 
-      g.value + ',' + (+ h.checked) + ',' + (+ i.checked) + ',' + 
+      + (+ a.checked) + ',' + ((b.value - 46.58) / 56.92) + ',' + (+ c.checked) + 
+      ',' + (+ d.checked) + ',' + e.value / 285 + ',' + f.value / 224 + ',' + 
+      (g.value - 3) / 12 + ',' + (+ h.checked) + ',' + (+ i.checked) + ',' + 
       (+ j.checked) + ',' + (+ k.checked) + ',' + (+ l.checked)
-      + ',' + m.value + ',' + + (b.value == '') + ',' + + (e.value == '') 
+      + ',' + (m.value - 16) / 74 + ',' + + (b.value == '') + ',' + + (e.value == '') 
       + ',' + + (f.value == '') + ',' + + (g.value = '') + ',' + 
       (+ !(ad.checked || ae.checked || af.checked || ag.checked ||
       ah.checked))
