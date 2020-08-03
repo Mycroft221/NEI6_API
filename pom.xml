@@ -35,6 +35,14 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<dependency>
+			<groupId>com.mathworks.engine</groupId>
+			<artifactId>engine</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>/usr/local/matlab/extern/engines/java/jar/engine.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -42,6 +50,16 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<includeSystemScope>true</includeSystemScope>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
