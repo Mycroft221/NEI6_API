@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<meta name="viewport" content="initial-scale=1, width=device-width, height=device-height, viewport-fit=cover">
+
 <html>
 
 <style>
@@ -10,6 +12,10 @@ input[type="button"] {
   margin:5px;
   margin-top: 0px;
 }
+    body{
+        padding-top: constant(safe-area-inset-top);
+        padding-top: env(safe-area-inset-top);
+    }
 </style>
 <body>
 
