@@ -1,14 +1,27 @@
 package com.example.demo;
 
 public class Request {
-
-    private double[] request;
-
-    public Request(double[] request) {
-        this.request = request;
+    public Request(String question, String answer) {
+        this.question = question;
+        this.answer = answer;
     }
 
-    public double[] getRequest() {
-        return request;
+    public String getQuestion() {
+        return question;
     }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    private String question;
+    private String answer;
 }

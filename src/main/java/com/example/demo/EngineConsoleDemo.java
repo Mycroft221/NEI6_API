@@ -1,4 +1,4 @@
-package com.example.demo; /**
+/**
  * The program provides a sample for Java Engine functions. It creates a matrix and squares the values greater than 5.
  * Copyright 2016-2017 The MathWorks, Inc.
  */
@@ -38,11 +38,13 @@ public class EngineConsoleDemo {
 //            ml.feval("load", f.getAbsolutePath());
 //            ml.eval("load('C:\\Users\\User\\Documents\\CS\\NEI6\\compact_model_for_testing.mat');");
             ml.eval(String.format("load('%s');", f.getCanonicalPath()));
-            ml.eval("load('C:\\Users\\User\\Documents\\CS\\NEI6\\sample.mat');");
-            ml.eval("ans = cens.predict(data1);");
-            double pred = ml.getVariable("ans");
-            System.out.println(pred);
-
+//            ml.eval("load('C:\\Users\\User\\Documents\\CS\\NEI6\\sample.mat');");
+//            ml.eval("ans = cens.predict(data1);");
+//            double pred = ml.getVariable("ans");
+//            System.out.println(pred);
+            ml.eval("a = 2 + 2");
+            System.out.println((String) ml.getVariable("a"));
+            System.out.println("gotvar");
             double[] data = {
                     0.        , 0.9075896 , 0.        , 0.        , 0.47017544,
                     0.36607143, 0.91666667, 0.        , 0.        , 0.        ,
