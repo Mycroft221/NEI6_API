@@ -98,7 +98,7 @@ function handlePrediction(prediction) {
   <label for="an">BLS</label>
   <br><br>
 
-  <p>Temperature</p>
+  <p>Temperature (F)</p>
   <input type="number" id="b" step="any">
   <br>
 
@@ -241,8 +241,8 @@ function handlePrediction(prediction) {
   <label for="at">spine</label>
   <br><br>
 
-  <p>Predicted Transport Time</p>
-  <input type="number" id="al" step="1">
+  <p>Predicted Transport Time (min)</p>
+  <input type="number" id="al" step="any">
   <br>
 
   <p>Legal Intervention</p>
@@ -271,7 +271,29 @@ function handlePrediction(prediction) {
   <br><br>
 
   <p>Transport Distance (miles)</p>
-  <input type="number" id="at" step="1">
+  <input type="number" id="at" step="any">
+  <br>
+
+  <p>Prehospital FAST</p>
+  <input type="radio" id="au" name="16">
+  <label for="au">Yes</label>
+  <input type="radio" id="aun" name="16" checked>
+  <label for="aun">No</label>
+  <br><br>
+
+  <p>Prehospital FAST Pericardial Window</p>
+  <input type="radio" id="av" name="17">
+  <label for="av">Yes</label>
+  <input type="radio" id="avn" name="17" checked>
+  <label for="avn">No</label>
+  <br><br>
+
+  <p>End Tidal CO2 (mmHg)</p>
+  <input type="number" id="aw" step="any">
+  <br>
+
+  <p>Base Deficit (Meq/L)</p>
+  <input type="number" id="ax" step="any">
   <br>
 
 
