@@ -76,8 +76,8 @@ function httpGet(theUrl){
     return xmlHttp.responseText;
 }
 function handlePrediction(prediction) {
-    // alert("identifier: " + prediction[1])
-    if (prediction == 1) {
+    alert("identifier: " + prediction[1])
+    if (prediction[0] == 1) {
         window.location = 'true.html';
     } else {
         window.location = 'false.html';
@@ -323,6 +323,7 @@ function handlePrediction(prediction) {
   <input type="button" value="Submit" onclick="handlePrediction(httpGet(
     //   'http\://ec2-35-163-138-174.us-west-2.compute.amazonaws.com:8080/predict?values='
     'http\://nei6.ddns.net:8080/predict?values='
+    // 'http\://localhost:8080/predict?values='
       + (+ a.checked) + ',' + ((b.value - 46.58) / 56.92) + ',' + (+ c.checked) + 
       ',' + (+ d.checked) + ',' + e.value / 285 + ',' + f.value / 224 + ',' + 
       (g.value - 3) / 12 + ',' + (+ h.checked) + ',' + (+ i.checked) + ',' + 
