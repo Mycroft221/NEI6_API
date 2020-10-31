@@ -47,6 +47,7 @@
 			<version>1.0</version>
 			<scope>system</scope>
 			<systemPath>/usr/local/matlab/extern/engines/java/jar/engine.jar</systemPath>
+<!--            <systemPath>C:/Program Files/MATLAB/R2019a/extern/engines/java/jar/engine.jar</systemPath>-->
 		</dependency>
 	</dependencies>
 
@@ -66,6 +67,27 @@
 					<includeSystemScope>true</includeSystemScope>
 				</configuration>
 			</plugin>
+<!--			<plugin>-->
+<!--			&lt;!&ndash; NOTE: We don't need a groupId specification because the group is-->
+<!--                 org.apache.maven.plugins ...which is assumed by default.-->
+<!--             &ndash;&gt;-->
+<!--			<artifactId>maven-assembly-plugin</artifactId>-->
+<!--			<version>3.3.0</version>-->
+<!--			<configuration>-->
+<!--				<descriptorRefs>-->
+<!--					<descriptorRef>jar-with-dependencies</descriptorRef>-->
+<!--				</descriptorRefs>-->
+<!--			</configuration>-->
+<!--			<executions>-->
+<!--				<execution>-->
+<!--					<id>make-assembly</id> &lt;!&ndash; this is used for inheritance merges &ndash;&gt;-->
+<!--					<phase>package</phase> &lt;!&ndash; bind to the packaging phase &ndash;&gt;-->
+<!--					<goals>-->
+<!--						<goal>single</goal>-->
+<!--					</goals>-->
+<!--				</execution>-->
+<!--			</executions>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 
