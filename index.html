@@ -76,8 +76,11 @@ function httpGet(theUrl){
     return xmlHttp.responseText;
 }
 function handlePrediction(prediction) {
-    alert("identifier: " + prediction[1])
-    if (prediction[0] == 1) {
+    const pred = + prediction[1];
+    const ident = + prediction.slice(3, -1);
+    console.log(pred, ident);
+    alert("identifier: " + ident)
+    if (pred == 1) {
         window.location = 'true.html';
     } else {
         window.location = 'false.html';
@@ -242,58 +245,58 @@ function handlePrediction(prediction) {
   <br><br>
 
   <p>Predicted Transport Time (min)</p>
-  <input type="number" id="al" step="any">
+  <input type="number" id="au" step="any">
   <br>
 
   <p>Legal Intervention</p>
-  <input type="radio" id="am" name="14">
-  <label for="am">Yes</label>
-  <input type="radio" id="amn" name="14" checked>
-  <label for="amn">No</label>
-  <br><br>
-
-  <p>Field Assisted Ventilation</p>
-  <input type="checkbox" id="ao">
-  <label for="ao">intubated</label>
-  <input type="checkbox" id="ap">
-  <label for="ap">king airway</label>
-  <input type="checkbox" id="aq">
-  <label for="aq">LMA</label>
-  <input type="checkbox" id="ar">
-  <label for="ar">BVM</label>
-  <br><br>
-
-  <p>Field Receiving Blood</p>
-  <input type="radio" id="as" name="15">
-  <label for="as">Yes</label>
-  <input type="radio" id="asn" name="15" checked>
-  <label for="asn">No</label>
-  <br><br>
-
-  <p>Transport Distance (miles)</p>
-  <input type="number" id="at" step="any">
-  <br>
-
-  <p>Prehospital FAST</p>
-  <input type="radio" id="au" name="16">
-  <label for="au">Yes</label>
-  <input type="radio" id="aun" name="16" checked>
-  <label for="aun">No</label>
-  <br><br>
-
-  <p>Prehospital FAST Pericardial Window</p>
-  <input type="radio" id="av" name="17">
+  <input type="radio" id="av" name="14">
   <label for="av">Yes</label>
-  <input type="radio" id="avn" name="17" checked>
+  <input type="radio" id="avn" name="14" checked>
   <label for="avn">No</label>
   <br><br>
 
+  <p>Field Assisted Ventilation</p>
+  <input type="checkbox" id="aw">
+  <label for="aw">intubated</label>
+  <input type="checkbox" id="ax">
+  <label for="ax">king airway</label>
+  <input type="checkbox" id="ay">
+  <label for="ay">LMA</label>
+  <input type="checkbox" id="az">
+  <label for="az">BVM</label>
+  <br><br>
+
+  <p>Field Receiving Blood</p>
+  <input type="radio" id="ba" name="15">
+  <label for="ba">Yes</label>
+  <input type="radio" id="ban" name="15" checked>
+  <label for="ban">No</label>
+  <br><br>
+
+  <p>Transport Distance (miles)</p>
+  <input type="number" id="bb" step="any">
+  <br>
+
+  <p>Prehospital FAST</p>
+  <input type="radio" id="bc" name="16">
+  <label for="bc">Yes</label>
+  <input type="radio" id="bcn" name="16" checked>
+  <label for="bcn">No</label>
+  <br><br>
+
+  <p>Prehospital FAST Pericardial Window</p>
+  <input type="radio" id="bd" name="17">
+  <label for="bd">Yes</label>
+  <input type="radio" id="bdn" name="17" checked>
+  <label for="bdn">No</label>
+  <br><br>
+
   <p>End Tidal CO2 (mmHg)</p>
-  <input type="number" id="aw" step="any">
+  <input type="number" id="be" step="any">
   <br>
 
   <p>Base Deficit (Meq/L)</p>
-  <input type="number" id="ax" step="any">
+  <input type="number" id="bf" step="any">
   <br>
 
 
@@ -322,8 +325,8 @@ function handlePrediction(prediction) {
   <!-- <input type="submit" value="Submit" onclick="alert(female.checked + 1)"> -->
   <input type="button" value="Submit" onclick="handlePrediction(httpGet(
     //   'http\://ec2-35-163-138-174.us-west-2.compute.amazonaws.com:8080/predict?values='
-    'http\://nei6.ddns.net:8080/predict?values='
-    // 'http\://localhost:8080/predict?values='
+    // 'http\://nei6.ddns.net:8080/predict?values='
+    'http\://localhost:8080/predict?values='
       + (+ a.checked) + ',' + ((b.value - 46.58) / 56.92) + ',' + (+ c.checked) + 
       ',' + (+ d.checked) + ',' + e.value / 285 + ',' + f.value / 224 + ',' + 
       (g.value - 3) / 12 + ',' + (+ h.checked) + ',' + (+ i.checked) + ',' + 
@@ -338,7 +341,14 @@ function handlePrediction(prediction) {
       ',' + (+ aa.checked) + ',' + (+ ab.checked) + ',' + (+ ac.checked)
       + ',' + (+ ad.checked) + ',' + (+ ae.checked) + ',' + (+ af.checked) 
       + ',' + (+ ag.checked) + ',' + (+ ah.checked) + ',' + (+ ai.checked) 
-      + ',' + (+ aj.checked) + ',' + (+ ak.checked)))">
+      + ',' + (+ aj.checked) + ',' + (+ ak.checked) + ',' + (+ al.checked) 
+      + ',' + (+ am.checked) + ',' + (+ ao.checked) + ',' + (+ ap.checked) 
+      + ',' + (+ aq.checked) + ',' + (+ ar.checked) + ',' + (+ as.checked) 
+      + ',' + (+ at.checked) + ',' + (au.value + 0)
+      + ',' + (+ av.checked) + ',' + (+ aw.checked)
+       + ',' + (+ ax.checked) + ',' + (+ ay.checked) + ',' + (+ az.checked)
+       + ',' + (+ ba.checked) + ',' + (bb.value + 0) + ',' + (+ bc.checked) + 
+       ',' + (+ bd.checked) + ',' + (be.value + 0) + ',' + (bf.value + 0)))">
   <br><br><br>
 </form> 
 
