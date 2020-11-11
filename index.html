@@ -213,14 +213,14 @@ function handlePrediction(prediction) {
   <label for="ah">other (legal intervention/war)</label>
   <br><br>
 
-  <p>Transport Distance</p>
+  <!-- <p>Transport Distance</p>
   <input type="radio" name="transport" id="ai">
   <label for="ai">less than 15 mins</label>
   <input type="radio" name="transport" id="aj">
   <label for="aj">15 - 30 mins</label>
   <input type="radio" name="transport" id="ak">
   <label for="ak">more than 30 mins</label>
-  <br><br>
+  <br><br> -->
 
   <p>Transfer Method</p>
   <input type="checkbox" id="al">
@@ -299,6 +299,57 @@ function handlePrediction(prediction) {
   <input type="number" id="bf" step="any">
   <br>
 
+  <p>Head/Neck</p>
+  <input type="checkbox" id="bg">
+  <label for="bg">Depressed Skull Fracture</label>
+  <input type="checkbox" id="bh">
+  <label for="bh">Penetrating Injury</label>
+  <input type="checkbox" id="bi">
+  <label for="bi">Large Laceration</label>
+  <input type="checkbox" id="bj">
+  <label for="bj">Difficulty Breathing/Speaking/Swallowing</label>
+  <input type="checkbox" id="bk">
+  <label for="bk">Pulsatile Bleeding</label>
+  <br><br>
+
+  <p>Neurologic Deficit</p>
+  <input type="radio" id="bl" name="18">
+  <label for="bl">Yes</label>
+  <input type="radio" id="bln" name="18" checked>
+  <label for="bln">No</label>
+  <br><br>
+
+  <p>Abdomen</p>
+  <input type="checkbox" id="bm">
+  <label for="bm">Penetrating Injury</label>
+  <input type="checkbox" id="bn">
+  <label for="bn">Unstable Pelvis</label>
+  <input type="checkbox" id="bo">
+  <label for="bo">Evisceration</label>
+  <br><br>
+
+  <p>Chest</p>
+  <input type="checkbox" id="bp">
+  <label for="bp">Flail Chest</label>
+  <input type="checkbox" id="bq">
+  <label for="bq">Open "Sucking" Wound</label>
+  <br><br>
+
+  <p>Extremities</p>
+  <input type="checkbox" id="br">
+  <label for="br">Open Fracture</label>
+  <input type="checkbox" id="bs">
+  <label for="bs">Tourniquet</label>
+  <input type="checkbox" id="bt">
+  <label for="bt">Pulsatile Bleeding</label>
+  <input type="checkbox" id="bu">
+  <label for="bu">Pulseless Extremity</label>
+  <input type="checkbox" id="bv">
+  <label for="bv">Partial or Complete Amputation</label>
+  <br><br>
+
+
+
 
   <!-- <input type="button" value="test" onclick="alert(
       (+ a.checked) + ',' + b.value + ',' + (+ c.checked) + 
@@ -340,15 +391,22 @@ function handlePrediction(prediction) {
       ',' + (+ x.checked) + ',' + (+ y.checked) + ',' + (+ z.checked) + 
       ',' + (+ aa.checked) + ',' + (+ ab.checked) + ',' + (+ ac.checked)
       + ',' + (+ ad.checked) + ',' + (+ ae.checked) + ',' + (+ af.checked) 
-      + ',' + (+ ag.checked) + ',' + (+ ah.checked) + ',' + (+ ai.checked) 
-      + ',' + (+ aj.checked) + ',' + (+ ak.checked) + ',' + (+ al.checked) 
+      + ',' + (+ ag.checked) + ',' + (+ ah.checked) + ',' + (+ (au.value < 15)) 
+      + ',' + (+ (au.value >= 15 && au.value < 30)) + ',' + (+ (au.value >= 30)) 
+      + ',' + (+ al.checked) 
       + ',' + (+ am.checked) + ',' + (+ ao.checked) + ',' + (+ ap.checked) 
       + ',' + (+ aq.checked) + ',' + (+ ar.checked) + ',' + (+ as.checked) 
       + ',' + (+ at.checked) + ',' + (au.value + 0)
       + ',' + (+ av.checked) + ',' + (+ aw.checked)
        + ',' + (+ ax.checked) + ',' + (+ ay.checked) + ',' + (+ az.checked)
        + ',' + (+ ba.checked) + ',' + (bb.value + 0) + ',' + (+ bc.checked) + 
-       ',' + (+ bd.checked) + ',' + (be.value + 0) + ',' + (bf.value + 0)))">
+       ',' + (+ bd.checked) + ',' + (be.value + 0) + ',' + (bf.value + 0)
+       + ',' + (+ bg.checked) + ',' + (+ bh.checked) + ',' + (+ bi.checked) 
+       + ',' + (+ bj.checked) + ',' + (+ bk.checked) + ',' + (+ bl.checked) 
+       + ',' + (+ bm.checked) + ',' + (+ bn.checked) + ',' + (+ bo.checked) 
+       + ',' + (+ bp.checked) + ',' + (+ bq.checked) + ',' + (+ br.checked) 
+       + ',' + (+ bs.checked) + ',' + (+ bt.checked) + ',' + (+ bu.checked) 
+       + ',' + (+ bv.checked)))">
   <br><br><br>
 </form> 
 
