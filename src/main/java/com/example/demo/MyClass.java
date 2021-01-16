@@ -36,7 +36,7 @@ public class MyClass
 			"gunshot",
 			"male",
 			"female",
-			"insurance",
+			"ins",
 			"evening",
 			"age",
 			"white",
