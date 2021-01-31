@@ -183,19 +183,25 @@ function handlePrediction(prediction) {
 
   <p>Mechanism of Injury</p>
   <input type="checkbox" id="w">
-  <label for="w">cut</label>
+  <!-- <label for="w">cut</label> -->
+  <label for="w">mvc</label>
   <input type="checkbox" id="x">
-  <label for="x">firearm</label>
+  <!-- <label for="x">firearm</label> -->
+  <label for="x">pedestrian struck</label>
   <input type="checkbox" id="y">
+  <!-- <label for="y">fall</label> -->
   <label for="y">fall</label>
   <input type="checkbox" id="z">
-  <label for="z">mvc</label>
+  <!-- <label for="z">mvc</label> -->
+  <label for="z">gsw</label>
   <input type="checkbox" id="aa">
-  <label for="aa">mcc</label>
+  <!-- <label for="aa">mcc</label> -->
+  <label for="aa">stab</label>
   <input type="checkbox" id="ab">
-  <label for="ab">pedal</label>
-  <input type="checkbox" id="ac">
-  <label for="ac">struck</label>
+  <!-- <label for="ab">pedal</label> -->
+  <label for="ab">bike</label>
+  <!-- <input type="checkbox" id="ac">
+  <label for="ac">struck</label> -->
   <input type="checkbox" id="v">
   <label for="v">other</label>
   <br><br>
@@ -210,7 +216,7 @@ function handlePrediction(prediction) {
   <input type="checkbox" id="ag">
   <label for="ag">undetermined</label>
   <input type="checkbox" id="ah">
-  <label for="ah">other (legal intervention/war)</label>
+  <label for="ah">other</label>
   <br><br>
 
   <!-- <p>Transport Distance</p>
@@ -389,7 +395,7 @@ function handlePrediction(prediction) {
       + ',' + (+ s.checked) + ',' + (+  t.checked) + 
       ',' + (+ u.checked) + ',' + (+ v.checked) + ',' + (+ w.checked) + 
       ',' + (+ x.checked) + ',' + (+ y.checked) + ',' + (+ z.checked) + 
-      ',' + (+ aa.checked) + ',' + (+ ab.checked) + ',' + (+ ac.checked)
+      ',' + (+ aa.checked) + ',' + (+ ab.checked) //+ ',' + (+ ac.checked)
       + ',' + (+ ad.checked) + ',' + (+ ae.checked) + ',' + (+ af.checked) 
       + ',' + (+ ag.checked) + ',' + (+ ah.checked) + ',' + (+ (au.value < 15)) 
       + ',' + (+ (au.value >= 15 && au.value < 30)) + ',' + (+ (au.value >= 30)) 
