@@ -107,6 +107,66 @@ function showBaseDeficit() {
         document.getElementById('base_deficit').style.display='none';
     }
 }
+function showHelmetUse() {
+    if (document.getElementById('ab').checked || document.getElementById('ac').checked) { // bike or motorcycle
+        document.getElementById('helmet').style.display='';
+    } else {
+        document.getElementById('helmet').style.display='none';
+    }
+}
+function buildRequestString() {
+    return 'https://nei6.ddns.net:8443/predict?site=' + 
+    document.querySelector('input[name=site]:checked').value +
+    '&values=' + 
+    (+ a.checked) + ',' + ((b.value - 46.58) / 56.92) + ',' + (+ c.checked) + 
+    ',' + (+ d.checked) + ',' + e.value / 285 + ',' + f.value / 224 + ',' + 
+    (g.value - 3) / 12 + ',' + (+ h.checked) + ',' + (+ i.checked)
+    //   (+ j.checked) // + ',' + (+ k.checked)
+    // gender
+    + ',' + (+ male.checked) + ',' + (+ female.checked) + ',' + (+ nonbinary.checked)
+    + ',' + (m.value - 16) / 74 
+    // temp not entered boolean
+    // + ',' + + (b.value == '') + ',' + + (e.value == '') 
+    // + ',' + + (f.value == '') + ',' + + (g.value = '')
+    // (+ !(ad.checked || ae.checked || af.checked || ag.checked ||
+    // ah.checked))
+    // Race
+    + ',' + (+ white.checked) + ',' + (+ hispanic.checked)
+    + ',' + (+ asian.checked) + ',' + (+ black.checked)
+    + ',' + (+ pacific_islander.checked) + ',' + (+ indian.checked)
+    //   + ',' + (+ s.checked) + ',' + (+  t.checked) + ',' + (+ u.checked)
+    // moi
+    + ',' + (+ w.checked) +
+    ',' + (+ x.checked) + ',' + (+ y.checked) + ',' + (+ z.checked) + 
+    ',' + (+ aa.checked) + ',' + (+ ab.checked) + ',' + (+ ac.checked)
+    + ',' + (+ v.checked)
+    // intentionality
+    //   + ',' + (+ ad.checked) + ',' + (+ ae.checked) + ',' + (+ af.checked) 
+    //   + ',' + (+ ag.checked) + ',' + (+ ah.checked) 
+    + ',' + (+ (au.value < 15)) 
+    + ',' + (+ (au.value >= 15 && au.value < 30)) + ',' + (+ (au.value >= 30)) 
+    + ',' + (+ al.checked) 
+    + ',' + (+ am.checked) + ',' + (+ ao.checked) 
+    //   + ',' + (+ ap.checked) 
+    //   + ',' + (+ aq.checked) + ',' + (+ ar.checked) + ',' + (+ as.checked) 
+    //   + ',' + (+ at.checked) 
+    + ',' + (au.value + 0)
+    // legal intervention
+    // + ',' + (+ av.checked) 
+    + ',' + (+ aw.checked)
+    + ',' + (+ ax.checked) + ',' + (+ ay.checked) + ',' + (+ az.checked)
+    + ',' + (+ ba.checked) + ',' + (bb.value + 0) + ',' + (+ bc.checked) + 
+    ',' + (+ bd.checked) + ',' + (etco2.value + 0) + ',' + (bf.value + 0)
+    + ',' + (+ bg.checked) + ',' + (+ bh.checked) + ',' + (+ bi.checked) 
+    + ',' + (+ bj.checked) + ',' + (+ bk.checked) + ',' + (+ bl.checked) 
+    + ',' + (+ bm.checked) + ',' + (+ bn.checked) + ',' + (+ bo.checked) 
+    + ',' + (+ bp.checked) + ',' + (+ bq.checked) + ',' + (+ br.checked) 
+    + ',' + (+ bs.checked) + ',' + (+ bt.checked) + ',' + (+ bu.checked) 
+    + ',' + (+ bv.checked) + ',' + (+ bcna.checked) + ',' + (+ bdna.checked)
+    + ',' + (+ transfer.checked) + ',' + (+ blood_transfer.checked) 
+    + ',' + (+ or.checked) + ',' + (+ !etco2yes.checked) 
+    + ',' + (+ !baseyes.checked) 
+}
 </script>
 <body>
 
@@ -115,6 +175,13 @@ function showBaseDeficit() {
 
 
 <form>
+    <p>Site</p>
+    <input type="radio" id="froedtert" value="froedtert" name="site">
+    <label for="froedtert">Froedtert</label>
+    <input type="radio" id="north_memorial" value="north_memorial" name="site">
+    <label for="north_memorial">North Memorial</label>
+    <br><br>
+
   <p>Level of Care</p>
   <input type="radio" id="a" name="0">
   <label for="a">ALS</label>
@@ -138,26 +205,21 @@ function showBaseDeficit() {
     <br><br>
   </div>
 
-  <p>Temperature (F)</p>
-  <input type="number" id="b" step="any">
-  <br>
-
-  <p>Bariatric</p>
-  <input type="radio" id="c" name="1">
-  <label for="c">Yes</label>
-  <input type="radio" id="cn" name="1" checked>
-  <label for="cn">No</label>
+  <p>Transfer Method</p>
+  <input type="checkbox" id="al">
+  <label for="al">Ground</label>
+  <input type="checkbox" id="am">
+  <label for="am">Helicopter</label>
+  <input type="checkbox" id="ao">
+  <label for="ao">Other</label>
   <br><br>
 
-  <p>Helmet Use</p>
-  <input type="radio" id="d" name="2">
-  <label for="d">Yes</label>
-  <input type="radio" id="dn" name="2" checked>
-  <label for="dn">No</label>
-  <br><br>
-
-  <h3>Please record most abberant vitals below:</h3>
+  <p>Estimated Time to Arrival (min)</p>
+  <input type="number" id="au" step="any">
   <br>
+
+  <h3>Please record most aberrant vitals below:</h3>
+
 
   <p>Systolic Blood Pressure</p>
   <input type="number" id="e" step="1">
@@ -171,19 +233,13 @@ function showBaseDeficit() {
   <input type="number" id="g" step="1">
   <br>
 
-  <p>Open Fracture</p>
-  <input type="radio" id="h" name="3">
-  <label for="h">Yes</label>
-  <input type="radio" id="hn" name="3" checked>
-  <label for="hn">No</label>
-  <br><br>
+  <p>Temperature (F)</p>
+  <input type="number" id="b" step="any">
+  <br>
 
-  <p>Central Gunshot Wound</p>
-  <input type="radio" id="i" name="4">
-  <label for="i">Yes</label>
-  <input type="radio" id="in" name="4" checked>
-  <label for="in">No</label>
-  <br><br>
+  <p>Age</p>
+  <input type="number" id="m" step="1">
+  <br>
 
   <p>Gender</p>
   <input type="radio" id="male" name="10">
@@ -194,26 +250,6 @@ function showBaseDeficit() {
   <label for="nonbinary">Nonbinary</label>
   <br><br>
 
-  <!-- <p>Private Insurance</p>
-  <input type="radio" id="k" name="11">
-  <label for="k">Yes</label>
-  <input type="radio" id="kn" name="11" checked>
-  <label for="kn">No</label>
-  <br><br> -->
-
-  <!-- <p>Evening Arrival</p>
-  <input type="radio" id="l" name="12">
-  <label for="l">Yes</label>
-  <input type="radio" id="ln" name="12" checked>
-  <label for="ln">No</label>
-  <br><br> -->
-
-  <p>Age</p>
-  <input type="number" id="m" step="1">
-  <br>
-
-  <!-- 14-18 nopqr-->
-  
   <p>Race</p>
   <input type="checkbox" id="white">
   <label for="white">White</label>
@@ -229,85 +265,60 @@ function showBaseDeficit() {
   <label for="indian">Amercan Indian or Alaka Native</label>
   <br><br>
 
+  <p>Bariatric</p>
+  <input type="radio" id="c" name="1">
+  <label for="c">Yes</label>
+  <input type="radio" id="cn" name="1" checked>
+  <label for="cn">No</label>
+  <br><br>
+
   <p>Mechanism of Injury</p>
   <input type="checkbox" id="w">
-  <label for="w">mvc</label>
+  <label for="w">MVC</label>
   <input type="checkbox" id="x">
-  <label for="x">pedestrian struck</label>
+  <label for="x">Pedestrian Struck</label>
   <input type="checkbox" id="y">
-  <label for="y">fall</label>
+  <label for="y">Fall</label>
   <input type="checkbox" id="z">
-  <label for="z">gsw</label>
+  <label for="z">GSW</label>
   <input type="checkbox" id="aa">
-  <label for="aa">stab</label>
-  <input type="checkbox" id="ab">
-  <label for="ab">bike</label>
-  <input type="checkbox" id="ac">
-  <label for="ac">motorcycle</label>
+  <label for="aa">Stab</label>
+  <input type="checkbox" id="ab" onclick="showHelmetUse()">
+  <label for="ab">Bike</label>
+  <input type="checkbox" id="ac" onclick="showHelmetUse()">
+  <label for="ac">Motorcycle</label>
   <input type="checkbox" id="v">
-  <label for="v">other</label>
+  <label for="v">Other</label>
   <br><br>
 
-  <!-- <p>Intentionality</p>
-  <input type="checkbox" id="ad">
-  <label for="ad">unintentional</label>
-  <input type="checkbox" id="ae">
-  <label for="ae">self inflicted</label>
-  <input type="checkbox" id="af">
-  <label for="af">assault</label>
-  <input type="checkbox" id="ag">
-  <label for="ag">undetermined</label>
-  <input type="checkbox" id="ah">
-  <label for="ah">other</label>
-  <br><br> -->
+  <div id="helmet" style="display: none;">
+    <p>Helmet Use</p>
+    <input type="radio" id="d" name="2">
+    <label for="d">Yes</label>
+    <input type="radio" id="dn" name="2" checked>
+    <label for="dn">No</label>
+    <br><br>
+  </div>
 
-  <!-- <p>Transport Distance</p>
-  <input type="radio" name="transport" id="ai">
-  <label for="ai">less than 15 mins</label>
-  <input type="radio" name="transport" id="aj">
-  <label for="aj">15 - 30 mins</label>
-  <input type="radio" name="transport" id="ak">
-  <label for="ak">more than 30 mins</label>
-  <br><br> -->
-
-  <p>Transfer Method</p>
-  <input type="checkbox" id="al">
-  <label for="al">ground</label>
-  <input type="checkbox" id="am">
-  <label for="am">helicopter</label>
-  <input type="checkbox" id="ao">
-  <label for="ao">other</label>
+  <p>Open Fracture</p>
+  <input type="radio" id="h" name="3">
+  <label for="h">Yes</label>
+  <input type="radio" id="hn" name="3" checked>
+  <label for="hn">No</label>
   <br><br>
 
-  <!-- <p>Predicted AIS > 3</p>
-  <input type="checkbox" id="ap">
-  <label for="ap">chest</label>
-  <input type="checkbox" id="aq">
-  <label for="aq">head/neck</label>
-  <input type="checkbox" id="ar">
-  <label for="ar">abdomen</label>
-  <input type="checkbox" id="as">
-  <label for="as">extremity</label>
-  <input type="checkbox" id="at">
-  <label for="at">spine</label>
-  <br><br> -->
-
-  <p>Estimated Time to Arrival (min)</p>
-  <input type="number" id="au" step="any">
-  <br>
-
-  <!-- <p>Legal Intervention</p>
-  <input type="radio" id="av" name="14">
-  <label for="av">Yes</label>
-  <input type="radio" id="avn" name="14" checked>
-  <label for="avn">No</label>
-  <br><br> -->
+  <p>Central Gunshot Wound</p>
+  <input type="radio" id="i" name="4">
+  <label for="i">Yes</label>
+  <input type="radio" id="in" name="4" checked>
+  <label for="in">No</label>
+  <br><br>
 
   <p>Field Assisted Ventilation</p>
   <input type="checkbox" id="aw">
-  <label for="aw">intubated</label>
+  <label for="aw">Intubated</label>
   <input type="checkbox" id="ax">
-  <label for="ax">king airway</label>
+  <label for="ax">King Airway</label>
   <input type="checkbox" id="ay">
   <label for="ay">LMA</label>
   <input type="checkbox" id="az">
@@ -320,10 +331,6 @@ function showBaseDeficit() {
   <input type="radio" id="ban" name="15" checked>
   <label for="ban">No</label>
   <br><br>
-
-  <p>Transport Distance (miles)</p>
-  <input type="number" id="bb" step="any">
-  <br>
 
   <p>Prehospital FAST</p>
   <input type="radio" id="bc" name="16">
@@ -425,80 +432,14 @@ function showBaseDeficit() {
   <label for="orn">No</label>
   <br><br>
 
-
-
-
-  <!-- <input type="button" value="test" onclick="alert(
-      (+ a.checked) + ',' + b.value + ',' + (+ c.checked) + 
-      ',' + (+ d.checked) + ',' + e.value + ',' + f.value + ',' + 
-      g.value + ',' + (+ h.checked) + ',' + (+ i.checked) + ',' + 
-      (+ j.checked) + ',' + (+ k.checked) + ',' + (+ l.checked)
-      + ',' + m.value + ',' + (+ s.checked) + ',' + (+  t.checked) + 
-      ',' + (+ u.checked) + ',' + (+ v.checked) + ',' + (+ w.checked) + 
-      ',' + (+ x.checked) + ',' + (+ y.checked) + ',' + (+ z.checked) + 
-      ',' + (+ aa.checked) + ',' + (+ ab.checked) + ',' + (+ ac.checked)
-      + ',' + (+ ad.checked) + ',' + (+ ae.checked) + ',' + (+ af.checked) 
-      + ',' + (+ ag.checked) + ',' + (+ ah.checked) + ',' + (+ ai.checked) 
-      + ',' + (+ aj.checked) + ',' + (+ ak.checked))"> -->
-
-
-
   <br>
-  <!-- <input type="radio" id="a" name="d" value="male">
-  <label for="a">Male</label><br>
-  <input type="radio" id="b" name="d" value="female">
-  <label for="b">Female</label><br> -->
-  <!-- <input type="radio" id="c" name="d" value="other">
-  <label for="c">Other</label><br> -->
-  <!-- <input type="submit" value="Submit" onclick="alert(female.checked + 1)"> -->
-  <input type="button" value="Submit" onclick="handlePrediction(httpGet(
-    //   'http\://ec2-35-163-138-174.us-west-2.compute.amazonaws.com:8080/predict?values='
-    'https\://nei6.ddns.net:8443/predict?values='
-    // 'http\://localhost:8080/predict?values='
-    + (+ a.checked) + ',' + ((b.value - 46.58) / 56.92) + ',' + (+ c.checked) + 
-    ',' + (+ d.checked) + ',' + e.value / 285 + ',' + f.value / 224 + ',' + 
-    (g.value - 3) / 12 + ',' + (+ h.checked) + ',' + (+ i.checked) + ',' + 
-    //   (+ j.checked) // + ',' + (+ k.checked)
-    // gender
-    + ',' + (+ male.checked) + ',' + (+ female.checked) + ',' + (+ nonbinary.checked)
-    + ',' + (+ l.checked)
-    + ',' + (m.value - 16) / 74 + ',' + + (b.value == '') + ',' + + (e.value == '') 
-    + ',' + + (f.value == '') + ',' + + (g.value = '') + ',' + 
-    (+ !(ad.checked || ae.checked || af.checked || ag.checked ||
-    ah.checked))
-    // Race
-    + ',' + (+ white.checked) + ',' + (+ hispanic.checked)
-    + ',' + (+ asian.checked) + ',' + (+ black.checked)
-    + ',' + (+ pacific_islander.checked) + ',' + (+ indian.checked)
-    //   + ',' + (+ s.checked) + ',' + (+  t.checked) + ',' + (+ u.checked)
-    // moi
-    + ',' + (+ w.checked) +
-    ',' + (+ x.checked) + ',' + (+ y.checked) + ',' + (+ z.checked) + 
-    ',' + (+ aa.checked) + ',' + (+ ab.checked) + ',' + (+ ac.checked)
-    + ',' + (+ v.checked)
-    // intentionality
-    //   + ',' + (+ ad.checked) + ',' + (+ ae.checked) + ',' + (+ af.checked) 
-    //   + ',' + (+ ag.checked) + ',' + (+ ah.checked) 
-    + ',' + (+ (au.value < 15)) 
-    + ',' + (+ (au.value >= 15 && au.value < 30)) + ',' + (+ (au.value >= 30)) 
-    + ',' + (+ al.checked) 
-    + ',' + (+ am.checked) + ',' + (+ ao.checked) 
-    //   + ',' + (+ ap.checked) 
-    //   + ',' + (+ aq.checked) + ',' + (+ ar.checked) + ',' + (+ as.checked) 
-    //   + ',' + (+ at.checked) 
-    + ',' + (au.value + 0)
-    + ',' + (+ av.checked) 
-    + ',' + (+ aw.checked)
-    + ',' + (+ ax.checked) + ',' + (+ ay.checked) + ',' + (+ az.checked)
-    + ',' + (+ ba.checked) + ',' + (bb.value + 0) + ',' + (+ bc.checked) + 
-    ',' + (+ bd.checked) + ',' + (etco2.value + 0) + ',' + (bf.value + 0)
-    + ',' + (+ bg.checked) + ',' + (+ bh.checked) + ',' + (+ bi.checked) 
-    + ',' + (+ bj.checked) + ',' + (+ bk.checked) + ',' + (+ bl.checked) 
-    + ',' + (+ bm.checked) + ',' + (+ bn.checked) + ',' + (+ bo.checked) 
-    + ',' + (+ bp.checked) + ',' + (+ bq.checked) + ',' + (+ br.checked) 
-    + ',' + (+ bs.checked) + ',' + (+ bt.checked) + ',' + (+ bu.checked) 
-    + ',' + (+ bv.checked) + ',' + (+ bcna.checked) + ',' + (+ bdna.checked)
-    + ',' + (+ transfer.checked)))">
+
+  <input type="button" value="Submit" onclick="
+    handlePrediction(
+      httpGet(
+        buildRequestString()
+      )
+    )">
   <br><br><br>
 </form> 
 

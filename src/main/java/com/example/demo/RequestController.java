@@ -40,21 +40,22 @@ public class RequestController {
 
     @CrossOrigin
     @GetMapping("/predict")
-    public int[] predict(@RequestParam double[] values) {
+    public int[] predict(@RequestParam double[] values, @RequestParam String site) {
         int datapred = 0;
 //        for(double value: values) {
 //            System.out.println(value);
 //        }
 //        System.out.println("datapred initialized");
         try {
-            ml.putVariable("data", Arrays.copyOfRange(values, 0, 37));
+//            ml.putVariable("data", Arrays.copyOfRange(values, 0, 37));
+            ml.putVariable("data", values);
             System.out.println("put data");
             ml.eval("datapred = cens.predict(data);");
             datapred = (((Double) ml.getVariable("datapred")).intValue() + 1) / 2;
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        MyClass log = new MyClass(values, ident);
+        MyClass log = new MyClass(values, ident, "");
         log.doPost();
         return new int[] {datapred, ident++};
     }

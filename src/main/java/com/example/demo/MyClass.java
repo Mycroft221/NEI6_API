@@ -10,6 +10,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.String;
@@ -25,74 +26,74 @@ public class MyClass
 	private final StringBuffer result;
 	private String line;
 	private String[] attributes =
-			{"transfer",
-			"temperature",
-			"obesity",
-			"helmet",
-			"sbp",
-			"pulse",
-			"gcs",
-			"fracture",
-			"gunshot",
-			"male",
-			"female",
-			"ins",
-			"evening",
-			"age",
-			"white",
-			"black",
-			"other_race",
-			"mvc",
-			"ped",
-			"fall",
-			"gsw",
-			"stab",
-			"bike",
-			"other_moi",
-			"unintentional",
-			"self",
-			"assault",
-			"undetermined",
-			"other_intent",
-			"dist_0_15",
-			"dist_15_30",
-			"dist_30_",
-            "ground",
-            "helicopter",
-            "other_transfer",
-            "chest",
-            "head_neck",
-            "abdomen",
-            "extremity",
-            "spine",
-            "time",
-            "legal",
-            "intubated",
-            "king_airway",
-            "lma",
-            "bvm",
-            "blood",
-            "distance",
-            "fast",
-            "fast_p",
-            "co2",
-            "base",
-            "skull",
-            "penetrating_head",
-            "lasceration_head",
-            "difficulty_breathing",
-            "pusatile_bleeding_head",
-            "neurologic_deficit",
-            "penetrating_abd",
-            "unstable_pelvis",
-            "evisceration",
-            "flail_chest",
-            "sucking_chest",
-            "open_fracture",
-            "tourniquet",
-            "pusatile_bleeding_ext",
-            "pulseless_ext",
-            "amputation"
+			{
+			        "transfer",
+                    "temperature",
+                    "obesity",
+                    "helmet",
+                    "sbp",
+                    "pulse",
+                    "gcs",
+                    "fracture",
+                    "gunshot",
+                    "male",
+                    "female",
+                    "nonbinary",
+                    "age",
+                    "white",
+                    "hispanic",
+                    "asian",
+                    "black",
+                    "pacific_islander",
+                    "indian",
+                    "mvc",
+                    "ped",
+                    "fall",
+                    "gsw",
+                    "stab",
+                    "bike",
+                    "motorcycle",
+                    "other_moi",
+                    "dist_0_15",
+                    "dist_15_30",
+                    "dist_30_",
+                    "ground",
+                    "helicopter",
+                    "other_transfer",
+                    "time",
+                    "intubated",
+                    "king_airway",
+                    "lma",
+                    "bvm",
+                    "blood",
+                    "distance",
+                    "fast",
+                    "fast_p",
+                    "co2",
+                    "base",
+                    "skull",
+                    "penetrating_head",
+                    "lasceration_head",
+                    "difficulty_breathing",
+                    "pusatile_bleeding_head",
+                    "neurologic_deficit",
+                    "penetrating_abd",
+                    "unstable_pelvis",
+                    "evisceration",
+                    "flail_chest",
+                    "sucking_chest",
+                    "open_fracture",
+                    "tourniquet",
+                    "pusatile_bleeding_ext",
+                    "pulseless_ext",
+                    "amputation",
+                    "fast_na",
+                    "fast_p_na",
+					"transfer_patient",
+					"transfer_blood",
+					"or",
+					"etco2_na",
+					"base_na"
             };
 
 //	public static void main(String[] args) {
@@ -101,7 +102,7 @@ public class MyClass
 //		myClass.doPost();
 //	}
 
-	public MyClass(double[] values, int generated_id)
+	public MyClass(double[] values, int generated_id, String dag)
 	{
 		params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("token", "51D6F1F5B87BCC17E5A8895B1C5746D1"));
@@ -111,10 +112,15 @@ public class MyClass
 		params.add(new BasicNameValuePair("overwriteBehavior", "normal"));
 		params.add(new BasicNameValuePair("forceAutoNumber", "true"));
 		String formattedValues = formatData(attributes, values);
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+		String timestamp = ts.toString();
 		String data = String.format("[{\"record_id\":\"0\"," +
+                "\"redcap_data_access_group\":\"%s\"," +
 				"\"generated_id\":\"%d\"," +
+                "\"timestamp\":\"%s\"," +
 				"%s" +
-				"\"appdata_complete\":\"2\"}]", generated_id, formattedValues);
+				"\"appdata_complete\":\"2\"}]", dag,
+                generated_id, timestamp, formattedValues);
 		System.out.println(data);
 		params.add(new BasicNameValuePair("data", data));
 		params.add(new BasicNameValuePair("returnContent", "count"));
