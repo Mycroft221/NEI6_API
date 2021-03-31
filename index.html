@@ -123,8 +123,8 @@ function buildRequestString() {
     (g.value - 3) / 12 + ',' + (+ h.checked) + ',' + (+ i.checked)
     //   (+ j.checked) // + ',' + (+ k.checked)
     // gender
-    + ',' + (+ male.checked) + ',' + (+ female.checked) + ',' + (+ nonbinary.checked)
-    + ',' + (m.value - 16) / 74 
+    + ',' + (+ male.checked) 
+    + ',' + (age.value - 16) / 74 
     // temp not entered boolean
     // + ',' + + (b.value == '') + ',' + + (e.value == '') 
     // + ',' + + (f.value == '') + ',' + + (g.value = '')
@@ -136,36 +136,47 @@ function buildRequestString() {
     + ',' + (+ pacific_islander.checked) + ',' + (+ indian.checked)
     //   + ',' + (+ s.checked) + ',' + (+  t.checked) + ',' + (+ u.checked)
     // moi
-    + ',' + (+ w.checked) +
+    + ',' + (+ v.checked)+ ',' + (+ w.checked) +
     ',' + (+ x.checked) + ',' + (+ y.checked) + ',' + (+ z.checked) + 
     ',' + (+ aa.checked) + ',' + (+ ab.checked) + ',' + (+ ac.checked)
-    + ',' + (+ v.checked)
     // intentionality
     //   + ',' + (+ ad.checked) + ',' + (+ ae.checked) + ',' + (+ af.checked) 
     //   + ',' + (+ ag.checked) + ',' + (+ ah.checked) 
     + ',' + (+ (au.value < 15)) 
     + ',' + (+ (au.value >= 15 && au.value < 30)) + ',' + (+ (au.value >= 30)) 
+    // transport mode 
     + ',' + (+ al.checked) 
     + ',' + (+ am.checked) + ',' + (+ ao.checked) 
     //   + ',' + (+ ap.checked) 
     //   + ',' + (+ aq.checked) + ',' + (+ ar.checked) + ',' + (+ as.checked) 
     //   + ',' + (+ at.checked) 
+    // ETA
     + ',' + (au.value + 0)
     // legal intervention
     // + ',' + (+ av.checked) 
     + ',' + (+ aw.checked)
     + ',' + (+ ax.checked) + ',' + (+ ay.checked) + ',' + (+ az.checked)
-    + ',' + (+ ba.checked) + ',' + (bb.value + 0) + ',' + (+ bc.checked) + 
-    ',' + (+ bd.checked) + ',' + (etco2.value + 0) + ',' + (bf.value + 0)
+    + ',' + (+ ba.checked) // + ',' + (bb.value + 0) 
+    + ',' + (+ bc.checked) + 
+    ',' + (+ bd.checked) + ',' + (etco2.value + 0)
+    // base deficit
+    + ',' + (bf.value + 0)
+    // Head/Neck
     + ',' + (+ bg.checked) + ',' + (+ bh.checked) + ',' + (+ bi.checked) 
-    + ',' + (+ bj.checked) + ',' + (+ bk.checked) + ',' + (+ bl.checked) 
+    + ',' + (+ bj.checked) + ',' + (+ bk.checked)
+    // focal neurologic deficit
+    + ',' + (+ bl.checked) 
+    // Abdomen, other injuries
     + ',' + (+ bm.checked) + ',' + (+ bn.checked) + ',' + (+ bo.checked) 
     + ',' + (+ bp.checked) + ',' + (+ bq.checked) + ',' + (+ br.checked) 
     + ',' + (+ bs.checked) + ',' + (+ bt.checked) + ',' + (+ bu.checked) 
-    + ',' + (+ bv.checked) + ',' + (+ bcna.checked) + ',' + (+ bdna.checked)
+    + ',' + (+ bv.checked) 
+    // fastna and fastpna
+    + ',' + (+ bcna.checked) + ',' + (+ bdna.checked)
     + ',' + (+ transfer.checked) + ',' + (+ blood_transfer.checked) 
     + ',' + (+ or.checked) + ',' + (+ !etco2yes.checked) 
     + ',' + (+ !baseyes.checked) 
+    + ',' + (+ female.checked) + ',' + (+ nonbinary.checked)
 }
 </script>
 <body>
@@ -238,7 +249,7 @@ function buildRequestString() {
   <br>
 
   <p>Age</p>
-  <input type="number" id="m" step="1">
+  <input type="number" id="age" step="1">
   <br>
 
   <p>Gender</p>
@@ -274,19 +285,19 @@ function buildRequestString() {
 
   <p>Mechanism of Injury</p>
   <input type="checkbox" id="w">
-  <label for="w">MVC</label>
+  <label for="w">Stab</label>
   <input type="checkbox" id="x">
-  <label for="x">Pedestrian Struck</label>
+  <label for="x">Gunshot</label>
   <input type="checkbox" id="y">
   <label for="y">Fall</label>
   <input type="checkbox" id="z">
-  <label for="z">GSW</label>
+  <label for="z">Motor Vehicle</label>
   <input type="checkbox" id="aa">
-  <label for="aa">Stab</label>
+  <label for="aa">Motorcycle</label>
   <input type="checkbox" id="ab" onclick="showHelmetUse()">
-  <label for="ab">Bike</label>
+  <label for="ab">Bicycle</label>
   <input type="checkbox" id="ac" onclick="showHelmetUse()">
-  <label for="ac">Motorcycle</label>
+  <label for="ac">Pedestrian Struck</label>
   <input type="checkbox" id="v">
   <label for="v">Other</label>
   <br><br>
