@@ -39,10 +39,6 @@ public class RequestController {
     @GetMapping("/predict")
     public int[] predict(@RequestParam double[] values, @RequestParam String site) {
         int datapred = 0;
-//        for(double value: values) {
-//            System.out.println(value);
-//        }
-//        System.out.println("datapred initialized");
         try {
             double[] predictionData = new double[37];
             for (int i = 0; i < 10; i++) {
