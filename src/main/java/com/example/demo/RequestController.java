@@ -23,12 +23,7 @@ public class RequestController {
             String path = "model.mat";
             System.out.println(path);
             File f = new File(path);
-            System.out.println(f.getAbsolutePath());
-            System.out.println(f.getCanonicalPath());
-//            ml.feval("load", f.getAbsolutePath());
-//            ml.eval("load('C:\\Users\\User\\Documents\\CS\\NEI6\\compact_model_for_testing.mat');");
             ml.eval(String.format("load('%s');", f.getCanonicalPath()));
-//            ml.eval("load('/home/pi/Documents/api/src/main/resources/compact_model_for_testing.mat');");
         } catch (InterruptedException | ExecutionException | IOException e) {
             System.out.println("connect/load exception");
             e.printStackTrace();
