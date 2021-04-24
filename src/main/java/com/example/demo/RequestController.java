@@ -21,7 +21,6 @@ public class RequestController {
             ident = 1;
             ml = MatlabEngine.connectMatlab();
             String path = "model.mat";
-            System.out.println(path);
             File f = new File(path);
             ml.eval(String.format("load('%s');", f.getCanonicalPath()));
         } catch (InterruptedException | ExecutionException | IOException e) {
