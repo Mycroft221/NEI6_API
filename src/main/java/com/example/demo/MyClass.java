@@ -92,7 +92,9 @@ public class MyClass
 					"etco2_na",
 					"base_na",
                     "female",
-                    "nonbinary"
+                    "nonbinary",
+					"india",
+					"arab"
             };
 
 //	public static void main(String[] args) {
