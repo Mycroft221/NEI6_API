@@ -1,0 +1,7 @@
+1. find current generated identifier value
+2. edit RequestController.java in the try block of constructor
+2.1 run "sudo certbot renew --force-renewal"
+3. stop api
+4. run generate_ssh_key.sh
+5. mvn package
+6. restart api
