@@ -106,7 +106,7 @@ public class MyClass
 	public MyClass(double[] values, int generated_id, String dag)
 	{
 		params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("token", "51D6F1F5B87BCC17E5A8895B1C5746D1"));
+		params.add(new BasicNameValuePair("token", "F8502827A12E38715ABE4C82413AF5DC"));
 		params.add(new BasicNameValuePair("content", "record"));
 		params.add(new BasicNameValuePair("format", "json"));
 		params.add(new BasicNameValuePair("type", "flat"));
