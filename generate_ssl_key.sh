@@ -5,3 +5,4 @@ sudo openssl pkcs12 -export -in /etc/letsencrypt/live/nei6.ddns.net/fullchain.pe
                  -CAfile /etc/letsencrypt/live/nei6.ddns.net/chain.pem \
                  -caname root \
                  -password pass:sherlock
+echo "done :)"
