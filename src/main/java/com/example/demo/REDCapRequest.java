@@ -107,6 +107,8 @@ public class REDCapRequest {
 //		myClass.doPost();
 //	}
 
+	public REDCapRequest() {}
+
 	public REDCapRequest(double[] values, int generated_id, String dag)
 	{
 		params = new ArrayList<NameValuePair>();
