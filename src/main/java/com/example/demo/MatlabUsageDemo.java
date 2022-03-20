@@ -11,7 +11,7 @@ import java.text.DecimalFormat;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-public class EngineConsoleDemo {
+public class MatlabUsageDemo {
     public static void main(String args[]) {
         try {
 //         //Start MATLAB asynchronously

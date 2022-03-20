@@ -6,3 +6,4 @@ server:
     key-alias: tomcat
     key-password: sherlock
   port: 8443
+redcap-token: 51D6F1F5B87BCC17E5A8895B1C5746D1
