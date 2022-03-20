@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.mathworks.engine.MatlabEngine;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
+@Component
 @RestController
 public class RequestController {
     MatlabEngine ml;
