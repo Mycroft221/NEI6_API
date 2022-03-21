@@ -2,7 +2,6 @@ package com.example.demo;
 
 import com.mathworks.engine.MatlabEngine;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,12 +11,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-@Component
 @RestController
 public class RequestController {
     MatlabEngine ml;
     @Value("${initial-id}")
     int ident;
+    @Value("${redcap-token}")
+    String token;
     public RequestController() {
         try {
             ml = MatlabEngine.connectMatlab();
@@ -67,7 +67,7 @@ public class RequestController {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        REDCapRequest log = new REDCapRequest(values, ident, site);
+        REDCapRequest log = new REDCapRequest(values, ident, site, token);
         log.doPost();
         return new int[] {datapred, ident++};
     }

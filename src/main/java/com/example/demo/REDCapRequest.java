@@ -7,8 +7,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -17,10 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.String;
 
-@Component
 public class REDCapRequest {
-	@Value("${redcap-token}")
-	private String token;
 	private final List<NameValuePair> params;
 	private final HttpPost post;
 	private HttpResponse resp;
@@ -107,9 +102,7 @@ public class REDCapRequest {
 //		myClass.doPost();
 //	}
 
-	public REDCapRequest() {}
-
-	public REDCapRequest(double[] values, int generated_id, String dag)
+	public REDCapRequest(double[] values, int generated_id, String dag, String token)
 	{
 		params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("token", token));
