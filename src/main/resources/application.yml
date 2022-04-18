@@ -1,6 +1,6 @@
 server:
   ssl:
-    key-store: classpath:keystore.p12
+    key-store: keystore.p12
     key-store-password: sherlock
     key-store-type: pkcs12
     key-alias: tomcat
