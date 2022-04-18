@@ -115,7 +115,7 @@ function showHelmetUse() {
     }
 }
 function buildRequestString() {
-    return 'https://nei6.ddns.net:8443/predict?site=' + 
+    return '/predict?site=' + 
     document.querySelector('input[name=site]:checked').value +
     '&values=' + 
     (+ a.checked) + ',' + ((b.value - 46.58) / 56.92) + ',' + (+ c.checked) + 
