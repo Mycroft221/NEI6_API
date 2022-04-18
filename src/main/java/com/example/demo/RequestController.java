@@ -14,10 +14,12 @@ import java.util.concurrent.ExecutionException;
 @RestController
 public class RequestController {
     MatlabEngine ml;
-    @Value("${initial-id}")
-    int ident;
-    @Value("${redcap-token}")
-    String token;
+    @Value("#{systemEnvironment['INITIAL_ID'] ?: 6000}")
+    private int ident;
+    @Value("#{systemEnvironment['REDCAP_URL']}")
+    private String redcapURL;
+    @Value("#{systemEnvironment['REDCAP_TOKEN']}")
+    private String redcapToken;
     public RequestController() {
         try {
             ml = MatlabEngine.connectMatlab();
@@ -67,7 +69,7 @@ public class RequestController {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        REDCapRequest log = new REDCapRequest(values, ident, site, token);
+        REDCapRequest log = new REDCapRequest(values, ident, site, redcapURL, redcapToken);
         log.doPost();
         return new int[] {datapred, ident++};
     }
