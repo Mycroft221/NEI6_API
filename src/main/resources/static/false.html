@@ -2,7 +2,7 @@
 <meta name="viewport" content="initial-scale=1, width=device-width, height=device-height, viewport-fit=cover">
 
 <html>
-
+<script src="utils.js"></script> 
 <style>
 input[type="button"] {
   float: left;
@@ -17,10 +17,15 @@ input[type="button"] {
         padding-top: env(safe-area-inset-top);
     }
 </style>
-<body>
+<body onload="addIdent('ident');">
 
 <h1>Emergent Intervention Not Predicted</h1>
 
+<div id="ident">
+  Identifier:
+</div>
+
+<br/>
 <input type="button" value="Reset" onclick="window.location = 'index.html';">
 
 

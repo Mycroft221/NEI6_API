@@ -79,11 +79,11 @@ function handlePrediction(prediction) {
     const pred = + prediction[1];
     const ident = + prediction.slice(3, -1);
     console.log(pred, ident);
-    alert("identifier: " + ident)
+    // alert("identifier: " + ident)
     if (pred == 1) {
-        window.location = 'true.html';
+        window.location = 'true.html?ident=' + ident;
     } else {
-        window.location = 'false.html';
+        window.location = 'false.html?ident=' + ident;
     }
 }
 function showTransferBlood() {
@@ -115,16 +115,30 @@ function showHelmetUse() {
     }
 }
 function buildRequestString() {
-    return '/predict?site=' + 
+    const adjustedB = b.value === '' ? 0.9021 : (b.value - 46.58) / 56.92; // Temperature
+    const adjustedE = e.value === '' ? 0.5020 : e.value / 285; // Systolic Blood Pressure
+    const adjustedF = f.value === '' ? 0.3910 : f.value / 224; // Pulse
+    const adjustedG = g.value === '' ? 0.9227 : (g.value - 3) / 12; // GCS Score
+    const adjustedAge = age.value === '' ? 0.5966 : (age.value - 16) / 74; // Age
+    // const eta_lt15 = au.value === '' ? 0.3729 : (+ (au.value < 15));
+    // const eta_gt15_lt30 = au.value === '' ? 0.3956 : (+ (au.value));
+    // const eta_gt30 = au.value === '' ? 0.2315 : (+ (au.value));
+    // if (au.value === '') { // Estimated Time to Arrival (min)
+    //   const temp1 = 0.3729;
+    //   const temp2 = 0.3956;
+    //   const temp3 = 0.2315;
+    // } 
+    // if (etco2.value === '') {etco2.value = } // End Tidal CO2 (mmHg)
+    return 'https://nei6.ddns.net:8443/predict?site=' + 
     document.querySelector('input[name=site]:checked').value +
     '&values=' + 
-    (+ a.checked) + ',' + ((b.value - 46.58) / 56.92) + ',' + (+ c.checked) + 
-    ',' + (+ d.checked) + ',' + e.value / 285 + ',' + f.value / 224 + ',' + 
-    (g.value - 3) / 12 + ',' + (+ h.checked) + ',' + (+ i.checked)
+    (+ a.checked) + ',' + adjustedB + ',' + (+ c.checked) + 
+    ',' + (+ d.checked) + ',' + adjustedE + ',' + adjustedF + ',' + 
+    adjustedG + ',' + (+ h.checked) + ',' + (+ i.checked)
     //   (+ j.checked) // + ',' + (+ k.checked)
     // gender
     + ',' + (+ male.checked) 
-    + ',' + (age.value - 16) / 74 
+    + ',' + adjustedAge
     // temp not entered boolean
     // + ',' + + (b.value == '') + ',' + + (e.value == '') 
     // + ',' + + (f.value == '') + ',' + + (g.value = '')
@@ -142,6 +156,7 @@ function buildRequestString() {
     // intentionality
     //   + ',' + (+ ad.checked) + ',' + (+ ae.checked) + ',' + (+ af.checked) 
     //   + ',' + (+ ag.checked) + ',' + (+ ah.checked) 
+    // ETA one-hot
     + ',' + (+ (au.value < 15)) 
     + ',' + (+ (au.value >= 15 && au.value < 30)) + ',' + (+ (au.value >= 30)) 
     // transport mode 
@@ -150,7 +165,7 @@ function buildRequestString() {
     //   + ',' + (+ ap.checked) 
     //   + ',' + (+ aq.checked) + ',' + (+ ar.checked) + ',' + (+ as.checked) 
     //   + ',' + (+ at.checked) 
-    // ETA
+    // ETA raw
     + ',' + (au.value + 0)
     // legal intervention
     // + ',' + (+ av.checked) 
@@ -199,15 +214,18 @@ function buildRequestString() {
     <label for="ksmc">KSMC</label>
     <input type="radio" id="ohio_health" value="ohio_health" name="site">
     <label for="ohio_health">Ohio Health</label>
-
     <input type="radio" id="njms" value="njms" name="site">
     <label for="njms">NJMS</label>
     <input type="radio" id="uk_healthcare" value="uk_healthcare" name="site">
     <label for="uk_healthcare">UK Healthcare</label>
     <input type="radio" id="uthealth" value="uthealth" name="site">
-    <label for="uthealth">UTHealth</label>
+    <label for="uthealth">UT Health</label>
     <input type="radio" id="houston" value="houston" name="site">
     <label for="houston">Houston</label>
+    <input type="radio" id="uf_health" value="uf_health" name="site">
+    <label for="uf_health">UF Health</label>
+    <input type="radio" id="patras" value="patras" name="site">
+    <label for="patras">Patras</label>
     <br><br>
 
   <p>Level of Care</p>
