@@ -1,0 +1,3 @@
+REDCAP_URL=https://redcap.example.edu/api/
+REDCAP_TOKEN=putyourredcaptokenhere
+INTITIAL_ID=12000

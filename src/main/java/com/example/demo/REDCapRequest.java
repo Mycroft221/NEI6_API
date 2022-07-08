@@ -102,7 +102,7 @@ public class REDCapRequest {
 //		myClass.doPost();
 //	}
 
-	public REDCapRequest(double[] values, int generated_id, String dag, String token)
+	public REDCapRequest(double[] values, int generated_id, String dag, String redcapURL, String token)
 	{
 		params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("token", token));
@@ -126,7 +126,7 @@ public class REDCapRequest {
 		params.add(new BasicNameValuePair("returnContent", "count"));
 		params.add(new BasicNameValuePair("returnFormat", "json"));
 
-		post = new HttpPost("https://redcap.mcw.edu/api/");
+		post = new HttpPost(redcapURL);
 		post.setHeader("Content-Type", "application/x-www-form-urlencoded");
 
 		try
