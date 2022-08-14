@@ -102,7 +102,7 @@ public class REDCapRequest {
 //		myClass.doPost();
 //	}
 
-	public REDCapRequest(double[] values, int generated_id, String dag, String redcapURL, String token)
+	public REDCapRequest(double[] values, String generated_id, String dag, int datapred, String redcapURL, String token)
 	{
 		params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("token", token));
@@ -116,11 +116,12 @@ public class REDCapRequest {
 		String timestamp = ts.toString();
 		String data = String.format("[{\"record_id\":\"0\"," +
                 "\"redcap_data_access_group\":\"%s\"," +
-				"\"generated_id\":\"%d\"," +
+				"\"generated_id\":\"%s\"," +
                 "\"timestamp\":\"%s\"," +
+				"\"nei6_prediction\":\"%d\"," +
 				"%s" +
-				"\"appdata_complete\":\"2\"}]", dag,
-                generated_id, timestamp, formattedValues);
+				"\"appdata_complete\":\"2\"}]",
+				dag, generated_id, timestamp, datapred, formattedValues);
 		System.out.println(data);
 		params.add(new BasicNameValuePair("data", data));
 		params.add(new BasicNameValuePair("returnContent", "count"));

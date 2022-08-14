@@ -76,14 +76,16 @@ function httpGet(theUrl){
     return xmlHttp.responseText;
 }
 function handlePrediction(prediction) {
-    const pred = + prediction[1];
-    const ident = + prediction.slice(3, -1);
+    const pred = + prediction[2];
+    const ident = prediction.slice(6, -2);
     console.log(pred, ident);
     // alert("identifier: " + ident)
     if (pred == 1) {
         window.location = 'true.html?ident=' + ident;
-    } else {
+    } else if (pred == 0) {
         window.location = 'false.html?ident=' + ident;
+    } else {
+        alert("Server Error. Please try again.");
     }
 }
 function showTransferBlood() {
@@ -130,6 +132,7 @@ function buildRequestString() {
     // } 
     // if (etco2.value === '') {etco2.value = } // End Tidal CO2 (mmHg)
     return 'https://nei6.ddns.net:8443/predict?site=' + 
+    // return 'https://localhost:8443/predict?site=' + 
     document.querySelector('input[name=site]:checked').value +
     '&values=' + 
     (+ a.checked) + ',' + adjustedB + ',' + (+ c.checked) + 

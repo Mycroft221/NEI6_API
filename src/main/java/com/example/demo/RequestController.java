@@ -9,13 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 @RestController
 public class RequestController {
     MatlabEngine ml;
-    @Value("#{systemEnvironment['INITIAL_ID'] ?: 6000}")
-    private int ident;
     @Value("#{systemEnvironment['REDCAP_URL']}")
     private String redcapURL;
     @Value("#{systemEnvironment['REDCAP_TOKEN']}")
@@ -34,8 +33,8 @@ public class RequestController {
 
     @CrossOrigin
     @GetMapping("/predict")
-    public int[] predict(@RequestParam double[] values, @RequestParam String site) {
-        int datapred = 0;
+    public String[] predict(@RequestParam double[] values, @RequestParam String site) {
+        int datapred = 2;
         try {
             double[] predictionData = new double[37];
             for (int i = 0; i < 10; i++) {
@@ -62,15 +61,23 @@ public class RequestController {
             for (int i = 25; i < 28; i++) {
                 predictionData[i + 9] = values[i]; // transport distance
             }
-            ml.putVariable("data", predictionData);
-            System.out.println("put data");
-            ml.eval("datapred = cens.predict(data);");
-            datapred = (((Double) ml.getVariable("datapred")).intValue() + 1) / 2;
+            synchronized (RequestController.class) {
+                ml.putVariable("data", predictionData);
+                System.out.println("put data");
+                ml.eval("datapred = cens.predict(data);");
+                datapred = (((Double) ml.getVariable("datapred")).intValue() + 1) / 2;
+            }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        REDCapRequest log = new REDCapRequest(values, ident, site, redcapURL, redcapToken);
+        String ident = generateIdentifier();
+        REDCapRequest log = new REDCapRequest(values, ident, site, datapred, redcapURL, redcapToken);
         log.doPost();
-        return new int[] {datapred, ident++};
+        return new String[] {String.valueOf(datapred), ident};
+    }
+
+    private String generateIdentifier() {
+        long epochTime = System.currentTimeMillis();
+        return Long.toString(epochTime, 36).toUpperCase();
     }
 }
