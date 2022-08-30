@@ -140,7 +140,10 @@ public class REDCapRequest {
 		}
 
 		result = new StringBuffer();
-		client = HttpClientBuilder.create().build();
+		System.setProperty("java.net.useSystemProxies", "true");
+		HttpClientBuilder builder = HttpClientBuilder.create();
+		builder.useSystemProperties();
+		client = builder.build();
 		respCode = -1;
 		reader = null;
 		line = null;
