@@ -131,8 +131,7 @@ function buildRequestString() {
     //   const temp3 = 0.2315;
     // } 
     // if (etco2.value === '') {etco2.value = } // End Tidal CO2 (mmHg)
-    return 'https://nei6.ddns.net:8443/predict?site=' + 
-    // return 'https://localhost:8443/predict?site=' + 
+    return '/predict?site=' + 
     document.querySelector('input[name=site]:checked').value +
     '&values=' + 
     (+ a.checked) + ',' + adjustedB + ',' + (+ c.checked) + 
