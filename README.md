@@ -24,7 +24,6 @@ Provide environment variables inline or via a docker environment file:
 # environment
 REDCAP_URL=https://redcap.example.edu/api/
 REDCAP_TOKEN=putyourredcaptokenhere
-INTITIAL_ID=12000
 ```
 
 ## Run
