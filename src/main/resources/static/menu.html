@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<meta name="viewport" content="initial-scale=1, width=device-width, height=device-height, viewport-fit=cover">
+<html>
+    <script src="utils.js"></script> 
+    <style>
+        input[type="button"] {
+          float: left;
+          padding: 5%;
+          background-color: rgb(218, 230, 255);
+          border-radius: 10px;
+          margin:0%;
+          margin-top: 3%;
+          margin-left: 10%;
+          width: 80%;
+        }
+        body{
+            padding-top: constant(safe-area-inset-top);
+            padding-top: env(safe-area-inset-top);
+        }
+        .block {
+            display: block;
+            width: 100%;
+            border: none;
+            background-color: #04AA6D;
+            padding: 14px 28px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .center {
+            text-align: center;
+        }
+    </style>
+<body>
+
+<h2 class="center">Trauma Decision Support</h2>
+
+<input type="button" class="block" value="Trauma Intervention Prediction" onclick="window.location = 'index.html';">
+<input type="button" class="block" value="Traumatic Brain Injury" onclick="window.location = 'http\://tbipredict.ddns.net/';">
+<input type="button" class="block" value="Elderly Mortality After Trauma" onclick="window.location = 'index.html';">
+
+</body>
+</html>
