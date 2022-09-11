@@ -2,6 +2,6 @@ demo.iml
 .idea
 /environment
 /*.lic
-/target
+/target/*
 keystore.p12
 scripts
