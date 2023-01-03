@@ -93,7 +93,11 @@ public class REDCapRequest {
                     "female",
                     "nonbinary",
 					"india",
-					"arab"
+					"arab",
+					"mrn",
+					"first_name",
+					"last_name",
+					"dob"
             };
 
 //	public static void main(String[] args) {
@@ -102,7 +106,7 @@ public class REDCapRequest {
 //		myClass.doPost();
 //	}
 
-	public REDCapRequest(double[] values, String generated_id, String dag, int datapred, String redcapURL, String token)
+	public REDCapRequest(String[] values, String generated_id, String dag, int datapred, String redcapURL, String token)
 	{
 		params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("token", token));
@@ -149,7 +153,7 @@ public class REDCapRequest {
 		line = null;
 	}
 
-	private String formatData(String[] attributes, double[] values) {
+	private String formatData(String[] attributes, String[] values) {
 		StringBuilder s = new StringBuilder();
 		for (int i = 0; i < attributes.length; i++) {
 			s.append("\""); // "

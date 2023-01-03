@@ -19,6 +19,12 @@ input[type="number"] {
     width: 128px;
     height: 15px;
 }
+input[type="text"] {
+    margin: 4px 5px;
+    margin-bottom: 18px;
+    width: 128px;
+    height: 15px;
+}
 input[type="button"] {
   float: left;
   padding: 8px 20px;
@@ -61,6 +67,15 @@ p {
 h2 {
     text-indent: 10px;
 }
+
+div {
+	color: rgb(255, 0, 0);
+	font-weight: bold;
+
+
+}
+
+
 </style>
 <script>
 function httpGet(theUrl){
@@ -102,6 +117,15 @@ function showEtco2() {
         document.getElementById('etco2_box').style.display='none';
     }
 }
+function showmrn() {
+    if (document.getElementById('mrnyes').checked) {
+        document.getElementById('mrn_div').style.display='';
+        document.getElementById('name_dob').style.display='none';
+    } else {
+        document.getElementById('mrn_div').style.display='none';
+        document.getElementById('name_dob').style.display='';
+    }
+}
 function showBaseDeficit() {
     if (document.getElementById('baseyes').checked) {
         document.getElementById('base_deficit').style.display='';
@@ -133,7 +157,7 @@ function buildRequestString() {
     // if (etco2.value === '') {etco2.value = } // End Tidal CO2 (mmHg)
     return '/predict?site=' + 
     document.querySelector('input[name=site]:checked').value +
-    '&values=' + 
+    '&raw_values=' + 
     (+ a.checked) + ',' + adjustedB + ',' + (+ c.checked) + 
     ',' + (+ d.checked) + ',' + adjustedE + ',' + adjustedF + ',' + 
     adjustedG + ',' + (+ h.checked) + ',' + (+ i.checked)
@@ -196,7 +220,121 @@ function buildRequestString() {
     + ',' + (+ !baseyes.checked) 
     + ',' + (+ female.checked) + ',' + (+ nonbinary.checked)
     + ',' + (+ india.checked) + ',' + (+ arab.checked)
+    // HIPAA identifiers
+    + ',' + mrn.value + ',' + first_name.value + ',' + last_name.value
+    + ',' + dob.value
 }
+function validateInput() {
+    var hasError = false;
+	var errors = document.getElementById('error')
+	var errMsg = "";
+	var errMsgs = "";
+	var errMsgp = "";
+	var errMsgg = "";
+	var errMsgt = "";
+	var errMsga = "";
+	var errMsgti = "";
+	var sbp_bounds = document.getElementById('e').value;
+	//alert(sbp_bounds);
+    if (sbp_bounds.indexOf('/') > -1) {
+		//alert("Please enter a valid value for Systolic Blood Pressure");
+		errMsgs = errMsgs + "Please only enter Systolic Blood Pressure. '/' is not allowed";
+        sbperror.append(errMsgs);
+        hasError = true;
+	} 
+
+	if (!sbp_bounds || sbp_bounds > 250 || sbp_bounds < 0) {
+		//alert("Please enter a valid value for Systolic Blood Pressure");
+		errMsgs = errMsgs + "Please enter a valid value for Systolic Blood Pressure";
+        sbperror.append(errMsgs);
+        hasError = true;
+	} 
+	
+	var time_bounds = document.getElementById('au').value;
+	if (!time_bounds || time_bounds < 0) {
+		errMsgti = errMsgti + "Please enter a valid value for Time"
+		tierror.append(errMsgti);
+        hasError = true;
+	}
+	
+	var pulse_bounds = document.getElementById('f').value;
+	
+	if (!pulse_bounds || pulse_bounds> 250 || pulse_bounds < 0){
+		//alert("Please enter a valid value for Pulse");
+		errMsgp = errMsgp + "Please enter a valid value for Pulse";
+		puslseerror.append(errMsgp);
+        hasError = true;
+	}
+	var GCS_bounds = document.getElementById('g').value; 
+	if (!GCS_bounds || GCS_bounds > 15 || GCS_bounds < 3) {
+		errMsgg = errMsgg + "Please enter a valid value for GCS";
+		gcserror.append(errMsgg);
+        hasError = true;
+	}
+	var Temperature_bounds = document.getElementById('b').value;
+	if (Temperature_bounds && (Temperature_bounds > 115 || Temperature_bounds < 85)){
+		errMsgt = errMsgt + "Please enter a valid value for Temperature(F)";
+		temperror.append(errMsgt);
+        hasError = true;
+	}
+	var age_bounds = document.getElementById('age').value;
+	if (!age_bounds || age_bounds >= 120 || age_bounds < 0) {
+		errMsga = errMsga + "Please enter a valid value for Age";
+		ageerror.append(errMsga);
+        hasError = true;
+	}
+    if (!mrnno.checked && !mrn.value) {
+        !mrnerror.hasChildNodes() ? mrnerror.append("Please enter patient MRN, or select No above.") : null;
+        hasError = true;
+    }
+    if (!mrnyes.checked && (!first_name.value || !last_name.value || !dob.value)) {
+        !firstnameerror.hasChildNodes() ? firstnameerror.append("Please enter first name, last name, and date of birth; or select Yes above if MRN is available.") : null;
+        hasError = true;
+    }
+	var x = document.getElementById("error");
+	if (x.style.display === "") {
+		x.style.display = "block";
+	}	else {
+		x.style.display = "none";
+	}
+	
+	errors.append(errMsg);
+	/*
+	var checkboxerror1 = document.getElementById('al').value + document.getElementById('am').value;
+	alert(checkboxerror);
+	*/
+
+	// var race_check =  (+ white.checked) + (+ hispanic.checked) + (+ asian.checked) + (+ black.checked) + (+ pacific_islander.checked) + (+ indian.checked) + (+ RaceNA.checked)
+	// //alert(race_check);
+	// if (race_check == 0) {
+	// 	race_error.append("Please select a value for race");
+    //     hasError = true;
+	// }
+	// var levelofcare_check = (+ a.checked) + (+ au.checked)
+	// //alert(levelofcare_check);
+	// if (levelofcare_check == 0) {
+	// 	levelofcare.append("Please select a value for level of care");
+    //     hasError = true;
+	// }
+	// var patienttype_check = (+ transfer.checked) + (+ transfern.checked)
+	// //alert(patienttype_check);
+	// if (patienttype_check == 0) {
+	// 	patienttype.append("Please select a value for patient type");
+    //     hasError = true;
+	// }
+	// // var transfermethod_check = (+ )
+
+    if(hasError) {
+        window.scrollTo(0, 0);
+    } else {
+        handlePrediction(
+            httpGet(
+                buildRequestString()
+            )
+        );
+    }
+}
+
 </script>
 <body>
 
@@ -205,6 +343,11 @@ function buildRequestString() {
 
 <!-- <p>Please select all responses that apply in dark blue.</p>
 <br> -->
+
+<div id="error" >
+	<ul>
+	</ul>
+</div>
 
 <form>
     <p>Site</p>
@@ -230,25 +373,27 @@ function buildRequestString() {
     <label for="patras">Patras</label>
     <br><br>
 
-  <p>Level of Care</p>
-  <input type="radio" id="a" name="0">
-  <label for="a">ALS</label>
-  <input type="radio" id="an" name="0" checked>
-  <label for="an">BLS</label>
-  <br><br>
+    <p>Level of Care</p>
+    <div id=levelofcare></div>
+    <input type="radio" id="a" name="0">
+    <label for="a">ALS</label>
+    <input type="radio" id="an" name="0">
+    <label for="an">BLS</label>
+    <br><br>
 
-  <p>Patient Type</p>
-  <input type="radio" id="transfer" name="transfer_radio" onclick="showTransferBlood()">
-  <label for="transfer">Transfer</label>
-  <input type="radio" id="transfern" name="transfer_radio" onclick="showTransferBlood()" checked>
-  <label for="transfern">Scene</label>
-  <br><br>
+    <p>Patient Type</p>
+    <div id=patienttype></div>
+    <input type="radio" id="transfer" name="transfer_radio" onclick="showTransferBlood()">
+    <label for="transfer">Transfer</label>
+    <input type="radio" id="transfern" name="transfer_radio" onclick="showTransferBlood()">
+    <label for="transfern">Scene</label>
+    <br><br>
 
   <div id="transfer_blood" style="display: none;">
     <p>Received Blood During Transfer</p>
     <input type="radio" id="blood_transfer" name="blood">
     <label for="blood_transfer">Yes</label>
-    <input type="radio" id="blood_transfern" name="blood" checked>
+    <input type="radio" id="blood_transfern" name="blood">
     <label for="blood_transfern">No</label>
     <br><br>
   </div>
@@ -262,32 +407,61 @@ function buildRequestString() {
   <label for="ao">Other</label>
   <br><br>
 
+  <div id= tierror></div>
   <p>Estimated Time to Arrival (min)</p>
-  <input type="number" id="au" step="any">
+  <input type="number" id="au" step="any" min="0" placeholder="above 0">
   <br>
   
   <h3>Please record most aberrant vitals below:</h3>
 
-
+  <div id = sbperror></div>
   <p>Systolic Blood Pressure</p>
-  <input type="number" id="e" step="1">
-  <br>
+  <input type="number" id="e" step="1" min="0" max="250" placeholder="0 to 250" required>
 
+  <div id= puslseerror></div>
   <p>Pulse</p>
-  <input type="number" id="f" step="1">
-  <br>
+  <input type="number" id="f" step="1" min="0" max="250" placeholder="0 to 250" required>
 
+
+  <div id= gcserror></div>
   <p>GCS Score</p>
-  <input type="number" id="g" step="1">
-  <br>
+  <input type="number" id="g" step="1" min="3" max="15" placeholder="3 to 15" required>
 
+  <div id= temperror></div>
   <p>Temperature (F)</p>
-  <input type="number" id="b" step="any">
-  <br>
+  <input type="number" id="b" step="any" min="85" max="115" placeholder="85 to 115" required>
 
+  <div id= ageerror></div>
   <p>Age</p>
-  <input type="number" id="age" step="1">
-  <br>
+  <input type="number" id="age" step="1" min="0" max="120" placeholder="0 to 120" required>
+
+  <p>Medical Record Number (MRN) Available</p>
+  <input type="radio" id="mrnyes" name="mrnradio" onclick="showmrn()">
+  <label for="mrnyes">Yes</label>
+  <input type="radio" id="mrnno" name="mrnradio" onclick="showmrn()">
+  <label for="mrnno">No</label>
+  <br><br>
+
+  <div id="mrn_div" style="display: none; color: rgb(0, 0, 0); font-weight: normal;">
+    <div id = mrnerror></div>
+    <p>Medical Record Number (MRN)</p>
+    <input type="text" id="mrn" required>
+  </div>
+
+  <div id="name_dob" style="color: rgb(0, 0, 0); font-weight: normal;">
+    <div id = firstnameerror></div>
+    <p>First Name</p>
+    <input type="text" id="first_name" required>
+
+    <div id = lastnameerror></div>
+    <p>Last Name</p>
+    <input type="text" id="last_name" required>
+
+    <div id = doberror></div>
+    <p>Date of Birth</p>
+    <input type="date" id="dob" required>
+    <br><br>
+  </div>
 
   <p>Gender</p>
   <input type="radio" id="male" name="10">
@@ -299,6 +473,7 @@ function buildRequestString() {
   <br><br>
 
   <p>Race</p>
+  <div id=race_error></div>
   <input type="checkbox" id="white">
   <label for="white">White</label>
   <input type="checkbox" id="hispanic">
@@ -315,12 +490,14 @@ function buildRequestString() {
   <label for="india">Indian</label>
   <input type="checkbox" id="arab">
   <label for="arab">Arab</label>
+  <input type="checkbox" id="RaceNA">
+  <label for="RaceNA">N/A</label>
   <br><br>
 
   <p>Bariatric</p>
   <input type="radio" id="c" name="1">
   <label for="c">Yes</label>
-  <input type="radio" id="cn" name="1" checked>
+  <input type="radio" id="cn" name="1">
   <label for="cn">No</label>
   <br><br>
 
@@ -347,7 +524,7 @@ function buildRequestString() {
     <p>Helmet Use</p>
     <input type="radio" id="d" name="2">
     <label for="d">Yes</label>
-    <input type="radio" id="dn" name="2" checked>
+    <input type="radio" id="dn" name="2">
     <label for="dn">No</label>
     <br><br>
   </div>
@@ -355,14 +532,14 @@ function buildRequestString() {
   <p>Open Fracture</p>
   <input type="radio" id="h" name="3">
   <label for="h">Yes</label>
-  <input type="radio" id="hn" name="3" checked>
+  <input type="radio" id="hn" name="3">
   <label for="hn">No</label>
   <br><br>
 
   <p>Central Gunshot Wound</p>
   <input type="radio" id="i" name="4">
   <label for="i">Yes</label>
-  <input type="radio" id="in" name="4" checked>
+  <input type="radio" id="in" name="4">
   <label for="in">No</label>
   <br><br>
 
@@ -378,12 +555,14 @@ function buildRequestString() {
   -->
   <input type="checkbox" id="az">
   <label for="az">BVM</label>
+  <input type="checkbox" id="ay">
+  <label for="ay">N/A</label>
   <br><br>
 
   <p>Field Receiving Blood</p>
   <input type="radio" id="ba" name="15">
   <label for="ba">Yes</label>
-  <input type="radio" id="ban" name="15" checked>
+  <input type="radio" id="ban" name="15">
   <label for="ban">No</label>
   <br><br>
 
@@ -392,7 +571,7 @@ function buildRequestString() {
   <label for="bc">Positive</label>
   <input type="radio" id="bcn" name="16">
   <label for="bcn">Negative</label>
-  <input type="radio" id="bcna" name="16" checked>
+  <input type="radio" id="bcna" name="16">
   <label for="bcna">N/A</label>
   <br><br>
 
@@ -401,18 +580,18 @@ function buildRequestString() {
   <label for="bd">Positive</label>
   <input type="radio" id="bdn" name="17">
   <label for="bdn">Negative</label>
-  <input type="radio" id="bdna" name="17" checked>
+  <input type="radio" id="bdna" name="17">
   <label for="bdna">N/A</label>
   <br><br>
 
   <p>End Tidal CO2 Reading Available</p>
   <input type="radio" id="etco2yes" name="etco2radio" onclick="showEtco2()">
   <label for="etco2yes">Yes</label>
-  <input type="radio" id="etco2no" name="etco2radio" onclick="showEtco2()" checked>
+  <input type="radio" id="etco2no" name="etco2radio" onclick="showEtco2()">
   <label for="etco2no">No</label>
   <br><br>
 
-  <div id="etco2_box" style="display: none;">
+  <div id="etco2_box" style="display: none;	color: rgb(0, 0, 0); font-weight: normal;">
     <p>End Tidal CO2 (mmHg)</p>
     <input type="number" id="etco2" step="any">
     <br>
@@ -421,7 +600,7 @@ function buildRequestString() {
   <p>Base Deficit Reading Available</p>
   <input type="radio" id="baseyes" name="baseradio" onclick="showBaseDeficit()">
   <label for="baseyes">Yes</label>
-  <input type="radio" id="baseno" name="baseradio" onclick="showBaseDeficit()" checked>
+  <input type="radio" id="baseno" name="baseradio" onclick="showBaseDeficit()">
   <label for="baseno">No</label>
   <br><br>
 
@@ -442,12 +621,14 @@ function buildRequestString() {
   <label for="bj">Difficulty Breathing/Speaking/Swallowing</label>
   <input type="checkbox" id="bk">
   <label for="bk">Pulsatile Bleeding</label>
+  <input type="checkbox" id="ak">   <!--new N/A button-->
+  <label for="ak">N/A</label>
   <br><br>
 
   <p>Focal Neurologic Deficit</p>
   <input type="radio" id="bl" name="18">
   <label for="bl">Yes</label>
-  <input type="radio" id="bln" name="18" checked>
+  <input type="radio" id="bln" name="18">
   <label for="bln">No</label>
   <br><br>
 
@@ -458,6 +639,8 @@ function buildRequestString() {
   <label for="bn">Unstable Pelvis</label>
   <input type="checkbox" id="bo">
   <label for="bo">Evisceration</label>
+  <input type="checkbox" id="oi">
+  <label for="oi">N/A</label>
   <br><br>
 
   <p>Chest</p>
@@ -465,6 +648,8 @@ function buildRequestString() {
   <label for="bp">Flail Chest</label>
   <input type="checkbox" id="bq">
   <label for="bq">Open "Sucking" Wound</label>
+  <input type="checkbox" id="bw">
+  <label for="bw">N/A</label>
   <br><br>
 
   <p>Extremities</p>
@@ -478,23 +663,21 @@ function buildRequestString() {
   <label for="bu">Pulseless Extremity</label>
   <input type="checkbox" id="bv">
   <label for="bv">Partial or Complete Amputation</label>
+  <input type="checkbox" id="bx">
+  <label for="bx">N/A</label>
   <br><br>
 
   <p>Do you think the patient should go directly to the operating room?</p>
   <input type="radio" id="or" name="19">
   <label for="or">Yes</label>
-  <input type="radio" id="orn" name="19" checked>
+  <input type="radio" id="orn" name="19">
   <label for="orn">No</label>
   <br><br>
 
   <br>
 
-  <input type="button" value="Submit" onclick="
-    handlePrediction(
-      httpGet(
-        buildRequestString()
-      )
-    )">
+  <input type="button" value="Submit" onclick="validateInput()">
+
   <br><br><br>
 </form> 
 

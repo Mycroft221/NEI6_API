@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 @RestController
 public class RequestController {
@@ -33,8 +35,11 @@ public class RequestController {
 
     @CrossOrigin
     @GetMapping("/predict")
-    public String[] predict(@RequestParam double[] values, @RequestParam String site) {
+    public String[] predict(@RequestParam String[] raw_values, @RequestParam String site) {
         int datapred = 2;
+        double[] values = Arrays.stream(raw_values)
+                .mapToDouble(v -> v.length() > 0 && v.matches("\\d*\\.?\\d*") ? Double.parseDouble(v) : 0)
+                .toArray();
         try {
             double[] predictionData = new double[37];
             for (int i = 0; i < 10; i++) {
@@ -61,6 +66,7 @@ public class RequestController {
             for (int i = 25; i < 28; i++) {
                 predictionData[i + 9] = values[i]; // transport distance
             }
+//            System.out.println(Arrays.toString(predictionData));
             synchronized (RequestController.class) {
                 ml.putVariable("data", predictionData);
                 System.out.println("put data");
@@ -71,7 +77,7 @@ public class RequestController {
             e.printStackTrace();
         }
         String ident = generateIdentifier();
-        REDCapRequest log = new REDCapRequest(values, ident, site, datapred, redcapURL, redcapToken);
+        REDCapRequest log = new REDCapRequest(raw_values, ident, site, datapred, redcapURL, redcapToken);
         log.doPost();
         return new String[] {String.valueOf(datapred), ident};
     }
